@@ -18,4 +18,10 @@ public class Population {
         return number * Math.cosh(bothAttack) - bothAttack * p.number *
                 Math.sinh(bothAttack);
     }
+
+    public double popZero(Population p) {
+        double bothAttack = Math.sqrt(attackStrength * p.attackStrength);
+        double absoluteZero = bothAttack * p.number * Math.sinh(bothAttack);
+        return absoluteZero;
+    }
 }
