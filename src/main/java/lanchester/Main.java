@@ -10,9 +10,18 @@ public class Main {
             i += 0.001;
         }
         double d = G.popZero(H);
+        System.out.println(i);
 
-        System.out.println(Math.sqrt(G.attackStrength * H.attackStrength) * d);
-        System.out.println(Math.cosh(Math.sqrt(G.attackStrength * H.attackStrength) * d));
-        System.out.println(G.popAtTime(H, d));
+
+
+        VictoryCalc victoryCalc = new VictoryCalc(G, H);
+        double vc = victoryCalc.popAtTime(0);
+        System.out.println(vc);
+
+        double t = Math.pow(Math.tanh(G.number / Math.sqrt(victoryCalc.r / victoryCalc.s) * H.number), -1);
+        System.out.println(t);
+        //System.out.println(Math.sqrt(G.attackStrength * H.attackStrength) * d);
+        //System.out.println(Math.cosh(Math.sqrt(G.attackStrength * H.attackStrength) * d));
+        //System.out.println(G.popAtTime(H, d));
     }
 }

@@ -15,7 +15,8 @@ public class Population {
         // Number of the population G(t) at time t
         // always number at t = 0
         double bothAttack = Math.sqrt(attackStrength * p.attackStrength) * t;
-        return number * Math.cosh(bothAttack) - bothAttack * p.number *
+        return number * Math.cosh(bothAttack) -
+                Math.sqrt(attackStrength / p.attackStrength) * p.number *
                 Math.sinh(bothAttack);
     }
 
