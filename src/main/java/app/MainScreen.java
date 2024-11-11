@@ -14,7 +14,7 @@ public class MainScreen extends JPanel {
 
     public MainScreen() {
         setBorder(BorderFactory.createLineBorder(Color.BLUE));
-        this.setSize(Constants.WIDTH, 614);
+        this.setPreferredSize(new Dimension(Constants.WIDTH, 614));
         this.setBackground(Color.BLACK);
 
         gPanel = new JPanel();

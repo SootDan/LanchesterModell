@@ -16,10 +16,13 @@ public class Main {
        LowerScreen lowerScreen = new LowerScreen(
                new Population(400, 0.3),
                new Population(300, 0.5));
-       frame.add(mainScreen);
-       frame.add(lowerScreen);
+        frame.setLayout(new BorderLayout());
+       frame.add(mainScreen, BorderLayout.CENTER);
+       frame.add(lowerScreen, BorderLayout.SOUTH);
 
        frame.setVisible(true);
+       System.out.println(mainScreen.getPreferredSize());
+       System.out.println(lowerScreen.getPreferredSize());
     }
 
     public void paintCoordinateSystem(Graphics graphics) {
