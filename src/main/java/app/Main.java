@@ -1,22 +1,25 @@
 package app;
+import lanchester.Population;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
-       JFrame frame = new JFrame("Lanchester-Modell");
+        JFrame frame = new JFrame("Lanchester-Modell");
+        JLayeredPane jLayeredPane = new JLayeredPane();
+
        frame.setSize(Constants.WIDTH, Constants.HEIGHT);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.setTitle("Lanchester-Modell");
 
-       JLabel label = new JLabel("...");
        MainScreen mainScreen = new MainScreen();
-       //frame.setLayout(new BoxLayout(frame, BoxLayout.Y_AXIS));
+       LowerScreen lowerScreen = new LowerScreen(
+               new Population(400, 0.3),
+               new Population(300, 0.5));
        frame.add(mainScreen);
-       LowerScreen lowerScreen = new LowerScreen();
        frame.add(lowerScreen);
-       frame.getContentPane().add(label);
-       //frame.pack();
+
        frame.setVisible(true);
     }
 
