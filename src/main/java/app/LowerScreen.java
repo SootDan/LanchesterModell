@@ -1,4 +1,5 @@
 package app;
+import gfx.CoordinateSystem;
 import lanchester.Population;
 
 import javax.swing.*;
@@ -42,17 +43,20 @@ public class LowerScreen extends JPanel {
 
         popPanel.add(popLabel);
         popPanel.setBackground(Color.DARK_GRAY);
-        popPanel.setPreferredSize((new Dimension(Constants.LOWER_SCREEN_POP_WIDTH, Constants.LOWER_SCREEN_HEIGHT)));
+        popPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_POP_WIDTH, Constants.LOWER_SCREEN_HEIGHT));
         return popPanel;
     }
 
     /***
      * Creates the stats at the bottom and updates them.
      */
-    public JPanel createStatPanel() {
-        JPanel statPanel = new JPanel();
-        statPanel.setBackground(Color.CYAN);
-        statPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_STAT_WIDTH, Constants.LOWER_SCREEN_HEIGHT));
+    public CoordinateSystem createStatPanel() {
+        CoordinateSystem statPanel = new CoordinateSystem(
+                Constants.LOWER_SCREEN_STAT_WIDTH - 40, Constants.LOWER_SCREEN_HEIGHT - 40,
+                G, H);
+        //statPanel.setBackground(Color.CYAN);
+        //statPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_STAT_WIDTH, Constants.LOWER_SCREEN_HEIGHT));
+        //statPanel.add(new CoordinateSystem(statPanel.getWidth(), statPanel.getHeight()));
         return statPanel;
     }
 }
