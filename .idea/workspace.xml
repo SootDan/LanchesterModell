@@ -5,6 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="358fbb73-54aa-45ae-a5da-d8c1b440b5c8" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/Constants.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/LowerScreen.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/app/MainScreen.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/app/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/app/Main.java" afterDir="false" />
     </list>
@@ -16,6 +19,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Enum" />
         <option value="Class" />
       </list>
     </option>
@@ -35,17 +39,18 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LanchesterSimulation.executor&quot;: &quot;Run&quot;,
-    &quot;Application.Main.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;onboarding.tips.debug.path&quot;: &quot;/home/Daniel/Desktop/HFU/Sem2/MuS/LanchesterModell/src/main/java/org/example/Main.java&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LanchesterSimulation.executor": "Run",
+    "Application.Main.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/home/Daniel/Desktop/HFU/Sem2/MuS/LanchesterModell",
+    "onboarding.tips.debug.path": "/home/Daniel/Desktop/HFU/Sem2/MuS/LanchesterModell/src/main/java/org/example/Main.java"
   }
-}</component>
+}]]></component>
   <component name="RunManager">
     <configuration name="LanchesterSimulation" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="lanchester.Main" />
