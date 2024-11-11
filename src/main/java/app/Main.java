@@ -7,7 +7,6 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Lanchester-Modell");
-        JLayeredPane jLayeredPane = new JLayeredPane();
 
        frame.setSize(Constants.WIDTH, Constants.HEIGHT);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

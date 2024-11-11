@@ -14,40 +14,32 @@ public class LowerScreen extends JPanel {
     public LowerScreen(Population G, Population H) {
         this.G = G;
         this.H = H;
-        gPanel = new JPanel();
-        gPanel.setBackground(Color.BLACK);
-        gPanel.setSize(300, 216);
-
-        hPanel = new JPanel();
-        hPanel.setBackground(Color.RED);
-        hPanel.setSize(300, 216);
+        this.setSize(new Dimension(Constants.WIDTH, 216));
+        gPanel = createPopPanel(G);
+        hPanel = createPopPanel(H);
 
         statPanel = new JPanel();
         statPanel.setBackground(Color.CYAN);
-        statPanel.setSize(500, 216);
+        statPanel.setPreferredSize(new Dimension(768, 216));
 
-        this.setLayout(new BorderLayout());
-        this.setSize(new Dimension(400, 216));
-        this.add(gPanel, BorderLayout.WEST);
-        this.add(statPanel, BorderLayout.CENTER);
-        this.add(hPanel, BorderLayout.EAST);
+        this.setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
+        this.add(gPanel);
+        this.add(statPanel);
+        this.add(hPanel);
     }
 
-    public void createPanels() {
-        JLayeredPane layeredPane = new JLayeredPane();
-        this.add(layeredPane);
+    /**
+     * Creates the information panels about each population to the bottom left/right.
+     */
+    public JPanel createPopPanel(Population pop) {
+        JPanel popPanel = new JPanel();
+        JLabel popLabel = new JLabel("<html>Population Size: " + pop.number
+        + "<br>Attack Power: " + pop.attackStrength + "</html>");
+        popLabel.setForeground(Color.WHITE);
 
-        JPanel panelG = new JPanel();
-        panelG.setBackground(Color.BLACK);
-        panelG.setBounds(0, 0, 600, 216);
-        this.setOpaque(true);
-        panelG.setSize(300,216);
-        //JLabel label = new JLabel("SUKA BLJAD IDI NAHUI");
-        //panelG.add(label);
-        layeredPane.add(panelG, JLayeredPane.PALETTE_LAYER);
-        layeredPane.setVisible(true);
-
-        //this.add(panelG);
-        //this.add(panelH);
+        popPanel.add(popLabel);
+        popPanel.setBackground(Color.DARK_GRAY);
+        popPanel.setPreferredSize((new Dimension(256, this.getHeight())));
+        return popPanel;
     }
 }

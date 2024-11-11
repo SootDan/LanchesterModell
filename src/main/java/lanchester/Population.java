@@ -2,9 +2,9 @@ package lanchester;
 
 public class Population {
     // G and H
-    double number;
+    public double number;
     // r and s
-    double attackStrength;
+    public double attackStrength;
 
     public Population(double number, double attackStrength) {
         this.number = number;
