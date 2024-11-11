@@ -1,6 +1,6 @@
 package app;
 import javax.swing.*;
-import java.awt.Dimension;
+import java.awt.*;
 
 public class Main {
     public static void main(String[] args) {
@@ -15,5 +15,9 @@ public class Main {
 
     public static Dimension windowSize() {
         return new Dimension(1000, 400);
+    }
+
+    public void paintCoordinateSystem(Graphics graphics) {
+        graphics.setColor(Color.BLUE);
     }
 }
