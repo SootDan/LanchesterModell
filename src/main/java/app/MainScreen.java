@@ -19,7 +19,6 @@ public class MainScreen extends JPanel {
     public MainScreen(Population G, Population H) {
         this.G = G;
         this.H = H;
-        setBorder(BorderFactory.createLineBorder(Color.BLACK));
         this.setSize(Constants.WIDTH, Constants.MAIN_SCREEN_HEIGHT);
         this.setBackground(Color.BLACK);
 
@@ -31,7 +30,7 @@ public class MainScreen extends JPanel {
         hPanel.setBackground(Color.ORANGE);
         hPanel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
 
-        this.setLayout(new GridLayout(1, 2, 2, 0));
+        this.setLayout(new GridLayout(1, 2, 0, 0));
 
         GraphicsMain g = new GraphicsMain(G, H);
 
