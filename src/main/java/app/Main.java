@@ -12,13 +12,12 @@ public class Main {
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.setTitle("Lanchester-Modell");
 
-       MainScreen mainScreen = new MainScreen(
-               new Population(400, 0.3),
-               new Population(300, 0.5));
-       LowerScreen lowerScreen = new LowerScreen(
-               new Population(400, 0.3),
-               new Population(300, 0.5));
-        frame.setLayout(new BorderLayout());
+       Population G = new Population(400, 0.3);
+       Population H = new Population(300, 0.5);
+       MainScreen mainScreen = new MainScreen(G, H);
+       LowerScreen lowerScreen = new LowerScreen(G, H);
+
+       frame.setLayout(new BorderLayout());
        frame.add(mainScreen, BorderLayout.CENTER);
        frame.add(lowerScreen, BorderLayout.SOUTH);
 

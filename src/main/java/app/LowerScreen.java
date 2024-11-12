@@ -50,13 +50,26 @@ public class LowerScreen extends JPanel {
     /***
      * Creates the stats at the bottom and updates them.
      */
-    public CoordinateSystem createStatPanel() {
+    /*public CoordinateSystem createStatPanel() {
         CoordinateSystem statPanel = new CoordinateSystem(
                 Constants.LOWER_SCREEN_STAT_WIDTH - 40, Constants.LOWER_SCREEN_HEIGHT - 40,
                 G, H);
-        //statPanel.setBackground(Color.CYAN);
-        //statPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_STAT_WIDTH, Constants.LOWER_SCREEN_HEIGHT));
+        statPanel.setBackground(Color.CYAN);
+        statPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_STAT_WIDTH, Constants.LOWER_SCREEN_HEIGHT));
         //statPanel.add(new CoordinateSystem(statPanel.getWidth(), statPanel.getHeight()));
+        return statPanel;
+    }*/
+
+    public JPanel createStatPanel() {
+        JPanel statPanel = new JPanel();
+        statPanel.setBackground(Color.CYAN);
+        statPanel.setLayout(new BorderLayout(0, 0));
+        statPanel.setPreferredSize(new Dimension(
+                Constants.LOWER_SCREEN_STAT_WIDTH, Constants.LOWER_SCREEN_HEIGHT
+        ));
+
+        CoordinateSystem coordinateSystem = new CoordinateSystem(G, H);
+        statPanel.add(coordinateSystem);
         return statPanel;
     }
 }

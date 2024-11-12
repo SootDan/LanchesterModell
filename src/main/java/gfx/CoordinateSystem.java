@@ -11,34 +11,63 @@ public class CoordinateSystem extends JPanel {
     Population G;
     Population H;
 
-    double minX = 1;
+    double minX = 0;
     double maxX;
 
-    public CoordinateSystem(int width, int height,
-                            Population G, Population H) {
-        this.width = width;
-        this.height = height;
+
+    public CoordinateSystem(Population G, Population H) {
         this.G = G;
         this.H = H;
         maxX = Math.max(G.number, H.number);
-        setPreferredSize(new Dimension(width, height));
+
     }
+
 
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        width = getWidth();
+        height = getHeight();
+
+        drawCoordinateSystem(g);
+
+    }
+
+
+    /**
+     * Draws the coordinate system including arrows.
+     */
+    public void drawCoordinateSystem(Graphics g) {
         // Draws coordinate system
+        int border = 15;
         g.setColor(Color.BLACK);
-        g.drawLine(10, height, width, height);
-        g.drawLine(10, 10, 10, height);
+        g.drawLine(border, height - border, width - border, height - border);
+        g.drawLine(border, border, border, height - border);
 
         int coordArrow = 5;
-        g.drawLine(width - coordArrow, height - coordArrow, width, height);
-        g.drawLine(width - coordArrow, height + coordArrow, width, height);
+        // Arrow x-axis
+        g.drawLine(width - border - coordArrow,
+                height - border - coordArrow,
+                width - border,
+                height - border);
+        g.drawLine(width - border,
+                height - border,
+                width - border - coordArrow,
+                height - border + coordArrow);
 
-        g.drawLine(10 - coordArrow, 10 + coordArrow, 10, 10);
-        g.drawLine(10, 10, 10 + coordArrow, 10 + coordArrow);
+        //Arrow y-axis
+        g.drawLine(border - coordArrow, border + coordArrow, border, border);
+        g.drawLine(border, border, border + coordArrow, border + coordArrow);
+    }
+
+
+    /**
+     *
+     * @param g
+     */
+    public void drawCoordinateDescription(Graphics g) {
+
     }
 }
