@@ -1,5 +1,6 @@
 package app;
 
+import gfx.GraphicsMain;
 import lanchester.Population;
 
 import javax.swing.*;
@@ -22,21 +23,27 @@ public class MainScreen extends JPanel {
         this.setSize(Constants.WIDTH, Constants.MAIN_SCREEN_HEIGHT);
         this.setBackground(Color.BLACK);
 
-        gPanel = new JPanel();
+        gPanel = drawPanel(G);
         gPanel.setBackground(Color.PINK);
-        gPanel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
 
-        hPanel = new JPanel();
+        hPanel = drawPanel(H);
         hPanel.setBackground(Color.ORANGE);
-        hPanel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
 
         this.setLayout(new GridLayout(1, 2, 0, 0));
-
-        GraphicsMain g = new GraphicsMain(G, H);
 
         this.add(gPanel);
         this.add(hPanel);
 
+    }
+
+    public GraphicsMain drawPanel(Population p){
+        JPanel panel = new JPanel();
+        panel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
+        panel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
+        GraphicsMain draw = new GraphicsMain(p,
+                Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT);
+
+        return draw;
     }
 
 }
