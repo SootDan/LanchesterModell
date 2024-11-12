@@ -10,7 +10,7 @@ public class GraphicsMain {
 
     public Population G;
     public Population H;
-//update
+//updatee
     public GraphicsMain(Population G, Population H){
          this.G = G;
          this.H = H;
