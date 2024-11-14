@@ -25,10 +25,10 @@ public class LowerScreen extends JPanel {
         hPanel = createPopPanel(H);
         statPanel = createStatPanel();
 
-        setLayout(new BoxLayout(this, BoxLayout.X_AXIS));
-        add(gPanel);
-        add(statPanel);
-        add(hPanel);
+        setLayout(new BorderLayout());
+        add(gPanel, BorderLayout.WEST);
+        add(statPanel, BorderLayout.CENTER);
+        add(hPanel, BorderLayout.EAST);
     }
 
     /**
@@ -38,12 +38,12 @@ public class LowerScreen extends JPanel {
         // TODO: Change pop size with timer
         JPanel popPanel = new JPanel();
         JLabel popLabel = new JLabel("<html>Population Size: " + pop.number
-        + "<br>Attack Power: " + pop.attackStrength + "</html>");
+        + "<br>Attack Power: " + pop.attackStrength * 100 + "%</html>");
         popLabel.setForeground(Color.WHITE);
 
         popPanel.add(popLabel);
         popPanel.setBackground(Color.DARK_GRAY);
-        popPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_POP_WIDTH, Constants.LOWER_SCREEN_HEIGHT));
+        popPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_POP_WIDTH - 1, Constants.LOWER_SCREEN_HEIGHT));
         return popPanel;
     }
 

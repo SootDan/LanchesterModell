@@ -32,7 +32,6 @@ public class CoordinateSystem extends JPanel {
         height = getHeight();
 
         drawCoordinateSystem(g);
-
     }
 
 
@@ -42,32 +41,27 @@ public class CoordinateSystem extends JPanel {
     public void drawCoordinateSystem(Graphics g) {
         // Draws coordinate system
         int border = 15;
-        g.setColor(Color.BLACK);
-        g.drawLine(border, height - border, width - border, height - border);
-        g.drawLine(border, border, border, height - border);
-
         int coordArrow = 5;
+
+        Vector2D coordOrigin = new Vector2D(border, border);
+        Vector2D coordBounds = new Vector2D(width - border, height - border);
+
+        g.setColor(Color.BLACK);
+        g.drawLine(coordOrigin.x, coordBounds.y, coordBounds.x, coordBounds.y);
+        g.drawLine(coordOrigin.x, coordOrigin.y, coordOrigin.x, coordBounds.y);
+
         // Arrow x-axis
-        g.drawLine(width - border - coordArrow,
-                height - border - coordArrow,
-                width - border,
-                height - border);
-        g.drawLine(width - border,
-                height - border,
-                width - border - coordArrow,
-                height - border + coordArrow);
+        g.drawLine(coordBounds.x - coordArrow, coordBounds.y - coordArrow, coordBounds.x, coordBounds.y);
+        g.drawLine(coordBounds.x, coordBounds.y, coordBounds.x - coordArrow, coordBounds.y + coordArrow);
 
         //Arrow y-axis
-        g.drawLine(border - coordArrow, border + coordArrow, border, border);
-        g.drawLine(border, border, border + coordArrow, border + coordArrow);
-    }
+        g.drawLine(coordOrigin.x - coordArrow, coordOrigin.y + coordArrow, coordOrigin.x, coordOrigin.y);
+        g.drawLine(coordOrigin.x, coordOrigin.y, coordOrigin.x + coordArrow, coordOrigin.y + coordArrow);
 
-
-    /**
-     *
-     * @param g
-     */
-    public void drawCoordinateDescription(Graphics g) {
-
+        // Set four dimensions on the x-axis
+        int incrementer = (coordBounds.y - coordOrigin.y) / 5;
+        for (int i = 1; i < 5; i++)
+            g.drawLine(coordOrigin.x - coordArrow, coordOrigin.y + incrementer * i,
+                    coordOrigin.x + coordArrow, coordOrigin.y + incrementer * i);
     }
 }

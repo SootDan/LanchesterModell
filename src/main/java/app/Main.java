@@ -22,11 +22,5 @@ public class Main {
        frame.add(lowerScreen, BorderLayout.SOUTH);
 
        frame.setVisible(true);
-       System.out.println(mainScreen.getPreferredSize());
-       System.out.println(lowerScreen.getPreferredSize());
-    }
-
-    public void paintCoordinateSystem(Graphics graphics) {
-        graphics.setColor(Color.BLUE);
     }
 }
