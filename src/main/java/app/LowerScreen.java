@@ -14,7 +14,7 @@ public class LowerScreen extends JPanel {
     public Population H;
     public JPanel gPanel;
     public JPanel hPanel;
-    public JPanel statPanel;
+    public CoordinateSystem coordinateSystem;
 
     public LowerScreen(Population G, Population H) {
         this.G = G;
@@ -23,11 +23,11 @@ public class LowerScreen extends JPanel {
 
         gPanel = createPopPanel(G);
         hPanel = createPopPanel(H);
-        statPanel = createStatPanel();
+        coordinateSystem = new CoordinateSystem(G, H);
 
         setLayout(new BorderLayout());
         add(gPanel, BorderLayout.WEST);
-        add(statPanel, BorderLayout.CENTER);
+        add(coordinateSystem, BorderLayout.CENTER);
         add(hPanel, BorderLayout.EAST);
     }
 
@@ -45,31 +45,5 @@ public class LowerScreen extends JPanel {
         popPanel.setBackground(Color.DARK_GRAY);
         popPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_POP_WIDTH - 1, Constants.LOWER_SCREEN_HEIGHT));
         return popPanel;
-    }
-
-    /***
-     * Creates the stats at the bottom and updates them.
-     */
-    /*public CoordinateSystem createStatPanel() {
-        CoordinateSystem statPanel = new CoordinateSystem(
-                Constants.LOWER_SCREEN_STAT_WIDTH - 40, Constants.LOWER_SCREEN_HEIGHT - 40,
-                G, H);
-        statPanel.setBackground(Color.CYAN);
-        statPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_STAT_WIDTH, Constants.LOWER_SCREEN_HEIGHT));
-        //statPanel.add(new CoordinateSystem(statPanel.getWidth(), statPanel.getHeight()));
-        return statPanel;
-    }*/
-
-    public JPanel createStatPanel() {
-        JPanel statPanel = new JPanel();
-        statPanel.setBackground(Color.CYAN);
-        statPanel.setLayout(new BorderLayout(0, 0));
-        statPanel.setPreferredSize(new Dimension(
-                Constants.LOWER_SCREEN_STAT_WIDTH, Constants.LOWER_SCREEN_HEIGHT
-        ));
-
-        CoordinateSystem coordinateSystem = new CoordinateSystem(G, H);
-        statPanel.add(coordinateSystem);
-        return statPanel;
     }
 }
