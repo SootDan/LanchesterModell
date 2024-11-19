@@ -1,6 +1,7 @@
 package app;
 import gfx.CoordinateSystem;
 import lanchester.Population;
+import utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;

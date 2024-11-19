@@ -2,6 +2,7 @@ package app;
 
 import gfx.GraphicsMain;
 import lanchester.Population;
+import utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;

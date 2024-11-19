@@ -1,6 +1,5 @@
 package gfx;
 
-import app.Constants;
 import lanchester.Population;
 
 import javax.swing.*;

@@ -1,5 +1,6 @@
 package app;
 import lanchester.Population;
+import utils.Constants;
 
 import javax.swing.*;
 import java.awt.*;
@@ -21,7 +22,7 @@ public class Main {
        input.add(inputFrame);
        input.setVisible(true);
 
-       Population G = new Population(400, 0.3);
+       Population G = new Population(537, 0.3);
        Population H = new Population(300, 0.5);
        MainScreen mainScreen = new MainScreen(G, H);
        LowerScreen lowerScreen = new LowerScreen(G, H);
