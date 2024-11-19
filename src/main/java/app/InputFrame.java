@@ -54,7 +54,7 @@ public class InputFrame extends JPanel {
         buttons.add(startButton);
         buttons.add(clearButton);
 
-        //TODO: button creates the Populations that will be used in rest of code
+        //TODO: button creates the Populations that will be used in rest of code.
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
