@@ -7,10 +7,19 @@ import java.awt.*;
 public class Main {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Lanchester-Modell");
+        JFrame input = new JFrame("Input Frame");
 
        frame.setSize(Constants.WIDTH, Constants.HEIGHT);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.setTitle("Lanchester-Modell");
+
+       input.setSize(450, 200);
+       input.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       input.setTitle("Input your Populations");
+
+       InputFrame inputFrame = new InputFrame();
+       input.add(inputFrame);
+       input.setVisible(true);
 
        Population G = new Population(400, 0.3);
        Population H = new Population(300, 0.5);

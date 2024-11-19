@@ -40,8 +40,7 @@ public class MainScreen extends JPanel {
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
         panel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
-        GraphicsMain draw = new GraphicsMain(p,
-                Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT);
+        GraphicsMain draw = new GraphicsMain(p);
 
         return draw;
     }
