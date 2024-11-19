@@ -27,14 +27,6 @@ public class GraphicsMain extends JPanel {
         int xc = 0; //to change x position
         int yc = 0; //to change y position
 
-        BufferedImage img = null;
-        try {
-            img = ImageIO.read(new File("fighter.png"));
-        } catch (IOException e) {
-        }
-
-        g2d.drawImage(img, 0, 0, null);
-
         for (int i = 0; i <= P.number; i++) {
                 g.fillOval(10 + xc, 10 + yc, diameter, diameter);
                 //((Graphics2D) g).setStroke(new BasicStroke(2));

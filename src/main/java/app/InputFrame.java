@@ -21,6 +21,8 @@ public class InputFrame extends JPanel {
     private JPanel hPanel = new JPanel();
     private JPanel buttons = new JPanel();
 
+    public int gPopNu;
+
     public InputFrame() {
         //To only allow input of numbers in Textfield
         NumberFormat format = NumberFormat.getInstance();
