@@ -8,7 +8,7 @@ import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Timer;
 
-public class Animation {
+public abstract class Animation {
 
     public void start(){
         ApplicationTime applicationTimeThread = new ApplicationTime();
