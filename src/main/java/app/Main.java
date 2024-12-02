@@ -1,11 +1,16 @@
 package app;
 import lanchester.Population;
 import utils.Constants;
+import utils.TimerListener;
+import utils.TimerManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class Main {
+   static Population G = new Population(400, 0.3);
+   static Population H = new Population(300, 0.5);
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Lanchester-Modell");
         JFrame input = new JFrame("Input Frame");
@@ -22,8 +27,12 @@ public class Main {
        input.add(inputFrame);
        input.setVisible(true);
 
-       Population G = new Population(537, 0.3);
-       Population H = new Population(300, 0.5);
+       /*
+        * Starts global timer.
+        * To add your class as an event listener, implement TimerListener and add an onTimerTick() method.
+        */
+       TimerManager.getInstance().start();
+
        MainScreen mainScreen = new MainScreen(G, H);
        LowerScreen lowerScreen = new LowerScreen(G, H);
 

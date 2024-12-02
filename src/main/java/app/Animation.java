@@ -15,7 +15,7 @@ public abstract class Animation {
         applicationTimeThread.start();
         FrameUpdater frameUpdater = new FrameUpdater(createFrames(applicationTimeThread));
         Timer timer = new Timer();
-        timer.scheduleAtFixedRate(frameUpdater, 100, Constants.TICKS_PER_FRAME);
+        timer.scheduleAtFixedRate(frameUpdater, 100, Constants.MS_PER_TICK);
     }
 
     protected abstract ArrayList<JFrame> createFrames(ApplicationTime applicationTimeThread);

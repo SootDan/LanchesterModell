@@ -13,10 +13,8 @@ import java.awt.*;
 public class MainScreen extends JPanel {
     //mainScreen.setSize(Constants.WIDTH, 864);
     //mainScreen.setBackground(Color.BLUE);
-    public JPanel gPanel;
-    public JPanel hPanel;
-    public Population G;
-    public Population H;
+    public JPanel gPanel, hPanel;
+    public Population G, H;
 
     public MainScreen(Population G, Population H) {
         this.G = G;

@@ -2,11 +2,8 @@ package lanchester;
 
 public class VictoryCalc {
     // constant L
-    public Population G;
-    public Population H;
-
-    public double r;
-    public double s;
+    public Population G, H;
+    public double r, s;
 
     public VictoryCalc(Population G, Population H) {
         this.G = G;

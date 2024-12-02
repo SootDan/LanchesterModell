@@ -1,27 +1,32 @@
 package gfx;
 
 import lanchester.Population;
-
+import utils.TimerListener;
+import utils.TimerManager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 
-public class CoordinateSystem extends JPanel {
+public class CoordinateSystem extends JPanel implements TimerListener {
     int width, height;
     Population G, H;
+    final double startGPop, startHPop;
 
-    ArrayList<Vector2D> coordXAxis = new ArrayList<>();
-    ArrayList<Vector2D> coordYAxis = new ArrayList<>();
+    ArrayList<Vector2D> coordXAxis = new ArrayList<>(), coordYAxis = new ArrayList<>();
     Vector2D coordOrigin, coordBounds;
 
     double maxX;
     int border = 25, coordArrow = 5;
 
 
+
     public CoordinateSystem(Population G, Population H) {
         this.G = G;
         this.H = H;
-        maxX = Math.max(G.number, H.number);
+        startGPop = G.number;
+        startHPop = H.number;
+        maxX = Math.max(startGPop, startHPop);
+        TimerManager.getInstance().addListener(this);
     }
 
 
@@ -38,7 +43,7 @@ public class CoordinateSystem extends JPanel {
         drawAxes(g);
         drawCoordinateSystem(g);
         drawTimer(g);
-        drawPopGraph(g);
+        drawPopGraph(g, TimerManager.ticks);
     }
 
 
@@ -82,7 +87,7 @@ public class CoordinateSystem extends JPanel {
             coordXAxis.add(new Vector2D(coordOrigin.x + incrementer * i, coordBounds.y));
             g.drawLine(coordXAxis.get(i).x, coordXAxis.get(i).y - coordArrow,
                     coordXAxis.get(i).x, coordXAxis.get(i).y + coordArrow);
-            g.drawString(30 * i +" Min", coordXAxis.get(i).x, coordXAxis.get(i).y  + coordArrow * 3);
+            g.drawString("" + i, coordXAxis.get(i).x, coordXAxis.get(i).y  + coordArrow * 3);
         }
     }
 
@@ -90,16 +95,16 @@ public class CoordinateSystem extends JPanel {
     /**
      * Draws the population over time.
      */
-    private void drawPopGraph(Graphics g) {
+    private void drawPopGraph(Graphics g, int ticks) {
         // TODO: Actually calculate how the graphs would look
-        double startG = 1.0 - G.number / maxX;
-        double startH = 1.0 - H.number / maxX;
+        double startG = 1.0 - startGPop / maxX;
+        double startH = 1.0 - startHPop / maxX;
 
         // G
         g.setColor(Color.PINK);
         g.drawLine(coordXAxis.getFirst().x, (int) (
                         (double) (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startG) + coordYAxis.getLast().y,
-                coordXAxis.getLast().x, coordYAxis.getFirst().y);
+                coordXAxis.get(ticks).x, coordYAxis.getFirst().y);
 
         // H
         g.setColor(Color.ORANGE);
@@ -110,6 +115,15 @@ public class CoordinateSystem extends JPanel {
 
     private void drawTimer(Graphics g) {
         // TODO: Add time system
-        g.drawString("Time Elapsed: 0 Minutes", coordXAxis.get(8).x, coordArrow * 2);
+        g.drawString("t elapsed: " + TimerManager.ticks, coordXAxis.get(8).x, coordArrow * 2);
+    }
+
+    private void updateTimer(Graphics g) {
+
+    }
+
+    @Override
+    public void onTimerTick() {
+        repaint();
     }
 }

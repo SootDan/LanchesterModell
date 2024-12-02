@@ -14,6 +14,9 @@ public class ApplicationTime extends Thread {
 
     }
 
+
+
+
     @Override
     public void run() {
         formerTime = System.currentTimeMillis();
