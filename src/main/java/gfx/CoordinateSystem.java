@@ -52,14 +52,18 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      */
     private void drawAxes(Graphics g) {
         // X-Axis
-        g.drawLine(coordOrigin.x, coordBounds.y, coordBounds.x, coordBounds.y);
-        g.drawLine(coordBounds.x - coordArrow, coordBounds.y - coordArrow, coordBounds.x, coordBounds.y);
-        g.drawLine(coordBounds.x, coordBounds.y, coordBounds.x - coordArrow, coordBounds.y + coordArrow);
+        g.drawLine((int) coordOrigin.x, (int) coordBounds.y, (int) coordBounds.x, (int) coordBounds.y);
+        g.drawLine((int) coordBounds.x - coordArrow, (int) coordBounds.y - coordArrow, (int) coordBounds.x,
+                (int) coordBounds.y);
+        g.drawLine((int) coordBounds.x, (int) coordBounds.y, (int) coordBounds.x - coordArrow,
+                (int) coordBounds.y + coordArrow);
 
         // Y-Axis
-        g.drawLine(coordOrigin.x, coordOrigin.y, coordOrigin.x, coordBounds.y);
-        g.drawLine(coordOrigin.x - coordArrow, coordOrigin.y + coordArrow, coordOrigin.x, coordOrigin.y);
-        g.drawLine(coordOrigin.x, coordOrigin.y, coordOrigin.x + coordArrow, coordOrigin.y + coordArrow);
+        g.drawLine((int) coordOrigin.x, (int) coordOrigin.y, (int) coordOrigin.x, (int) coordBounds.y);
+        g.drawLine((int) coordOrigin.x - coordArrow, (int) coordOrigin.y + coordArrow, (int) coordOrigin.x,
+                (int) coordOrigin.y);
+        g.drawLine((int) coordOrigin.x, (int) coordOrigin.y, (int) coordOrigin.x + coordArrow,
+                (int) coordOrigin.y + coordArrow);
     }
 
 
@@ -68,26 +72,26 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      */
     public void drawCoordinateSystem(Graphics g) {
         // Set five dimensions on the labelled x-axis
-        int incrementer = (coordBounds.y - coordOrigin.y) / 6;
+        int incrementer = (int) (coordBounds.y - coordOrigin.y) / 6;
         double popSize = maxX / 5;
-        g.drawString("p", coordOrigin.x, coordOrigin.y - coordArrow);
+        g.drawString("p", (int) coordOrigin.x, (int) coordOrigin.y - coordArrow);
 
         for (int i = 0; i <= 5; i++) {
             coordYAxis.add(new Vector2D(coordOrigin.x, coordBounds.y + -incrementer * i));
-            g.drawLine(coordYAxis.get(i).x - coordArrow, coordYAxis.get(i).y,
-                    coordYAxis.get(i).x + coordArrow, coordYAxis.get(i).y);
+            g.drawLine((int) coordYAxis.get(i).x - coordArrow, (int) coordYAxis.get(i).y,
+                    (int) coordYAxis.get(i).x + coordArrow, (int) coordYAxis.get(i).y);
             g.drawString(String.format("%.0f", i * popSize),
-                    coordYAxis.get(i).x - coordArrow * 5, coordYAxis.get(i).y + coordArrow);
+                    (int) coordYAxis.get(i).x - coordArrow * 5, (int) coordYAxis.get(i).y + coordArrow);
         }
 
         // Set ten dimensions on the labelled y-axis
-        incrementer = (coordBounds.x - coordOrigin.x) / 11;
-        g.drawString("p(t)", coordBounds.x + coordArrow, coordBounds.y);
+        incrementer = (int) (coordBounds.x - coordOrigin.x) / 11;
+        g.drawString("p(t)", (int) coordBounds.x + coordArrow, (int) coordBounds.y);
         for (int i = 0; i <= 10; i++) {
             coordXAxis.add(new Vector2D(coordOrigin.x + incrementer * i, coordBounds.y));
-            g.drawLine(coordXAxis.get(i).x, coordXAxis.get(i).y - coordArrow,
-                    coordXAxis.get(i).x, coordXAxis.get(i).y + coordArrow);
-            g.drawString("" + i, coordXAxis.get(i).x, coordXAxis.get(i).y  + coordArrow * 3);
+            g.drawLine((int) coordXAxis.get(i).x, (int) coordXAxis.get(i).y - coordArrow,
+                    (int) coordXAxis.get(i).x, (int) coordXAxis.get(i).y + coordArrow);
+            g.drawString("" + i, (int) coordXAxis.get(i).x, (int) coordXAxis.get(i).y  + coordArrow * 3);
         }
     }
 
@@ -102,20 +106,20 @@ public class CoordinateSystem extends JPanel implements TimerListener {
 
         // G
         g.setColor(Color.PINK);
-        g.drawLine(coordXAxis.getFirst().x, (int) (
-                        (double) (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startG) + coordYAxis.getLast().y,
-                coordXAxis.get(ticks).x, coordYAxis.getFirst().y);
+        g.drawLine((int) coordXAxis.getFirst().x, (int) ((coordYAxis.getFirst().y - coordYAxis.getLast().y) * startG
+                + coordYAxis.getLast().y),
+                (int) coordXAxis.get(ticks).x, (int) coordYAxis.getFirst().y);
 
         // H
         g.setColor(Color.ORANGE);
-        g.drawLine(coordXAxis.getFirst().x, (int) (
-                (double) (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startH) + coordYAxis.getLast().y,
-                coordXAxis.getLast().x, coordYAxis.getFirst().y);
+        g.drawLine((int) coordXAxis.getFirst().x, (int) (
+                (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startH) + (int) coordYAxis.getLast().y,
+                (int) coordXAxis.getLast().x, (int) coordYAxis.getFirst().y);
     }
 
     private void drawTimer(Graphics g) {
         // TODO: Add time system
-        g.drawString("t elapsed: " + TimerManager.ticks, coordXAxis.get(8).x, coordArrow * 2);
+        g.drawString("t elapsed: " + TimerManager.ticks, (int) coordXAxis.get(8).x, coordArrow * 2);
     }
 
     private void updateTimer(Graphics g) {
