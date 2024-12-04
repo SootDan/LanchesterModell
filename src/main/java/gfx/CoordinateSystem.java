@@ -19,14 +19,13 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     int border = 25, coordArrow = 5;
 
 
-
     public CoordinateSystem(Population G, Population H) {
         this.G = G;
         this.H = H;
         startGPop = G.number;
         startHPop = H.number;
         maxX = Math.max(startGPop, startHPop);
-        TimerManager.getInstance().addListener(this);
+        TimerManager.getInstance().addSubscriber(this);
     }
 
 
@@ -80,7 +79,7 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             coordYAxis.add(new Vector2D(coordOrigin.x, coordBounds.y + -incrementer * i));
             g.drawLine((int) coordYAxis.get(i).x - coordArrow, (int) coordYAxis.get(i).y,
                     (int) coordYAxis.get(i).x + coordArrow, (int) coordYAxis.get(i).y);
-            g.drawString(String.format("%.0f", i * popSize),
+            g.drawString(String.format("" + i * popSize),
                     (int) coordYAxis.get(i).x - coordArrow * 5, (int) coordYAxis.get(i).y + coordArrow);
         }
 
@@ -117,14 +116,17 @@ public class CoordinateSystem extends JPanel implements TimerListener {
                 (int) coordXAxis.getLast().x, (int) coordYAxis.getFirst().y);
     }
 
+
     private void drawTimer(Graphics g) {
         // TODO: Add time system
         g.drawString("t elapsed: " + TimerManager.ticks, (int) coordXAxis.get(8).x, coordArrow * 2);
     }
 
+
     private void updateTimer(Graphics g) {
 
     }
+
 
     @Override
     public void onTimerTick() {

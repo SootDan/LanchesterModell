@@ -1,7 +1,9 @@
 package lanchester;
 
-import java.util.Arrays;
-
+/**
+ * This class exists solely to test VictoryCalc and Population.
+ * Feel free to ignore it.
+ */
 public class Main {
     public static void main(String[] args) {
         Population G = new Population(200.0, 1);
@@ -12,9 +14,7 @@ public class Main {
             double[] vc = victoryCalc.popAtTime(t);
             if (vc[0] <= 0.0 || vc[1] <= 0.0)
                 break;
-            System.out.println(Arrays.toString(vc));
 
         }
-        System.out.println(victoryCalc.victory());
     }
 }

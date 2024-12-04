@@ -35,7 +35,7 @@ public class LowerScreen extends JPanel implements TimerListener {
         add(coordinateSystem, BorderLayout.CENTER);
         add(hPanel, BorderLayout.EAST);
 
-        TimerManager.getInstance().addListener(this);
+        TimerManager.getInstance().addSubscriber(this);
 
     }
 

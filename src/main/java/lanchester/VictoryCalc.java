@@ -4,6 +4,7 @@ public class VictoryCalc {
     public Population G, H;
     public double r, s, k;
 
+    
     public VictoryCalc(Population G, Population H) {
         this.G = G;
         this.H = H;
@@ -12,6 +13,7 @@ public class VictoryCalc {
         r = H.attackStrength;
         k = Math.sqrt(r * s);
     }
+
 
     public String victory() {
         // Formula taken from p. 14
@@ -25,15 +27,15 @@ public class VictoryCalc {
     }
 
 
+    /**
+     * Returns the population number at time t for either pop.
+     */
     public double[] popAtTime(double t) {
         // Formula taken from p. 9
-        double a = (G.numberAtStart - (r / k) * H.numberAtStart) / 2.0;
-        double b = (G.numberAtStart + (r / k) * H.numberAtStart) / 2.0;
-        double c = (H.numberAtStart - (s / k) * G.numberAtStart) / 2.0;
-        double d = (H.numberAtStart + (s / k) * G.numberAtStart) / 2.0;
-
-        double Gt = a * Math.exp(k * t) + b * Math.exp(-k * t);
-        double Ht = c * Math.exp(k * t) + d * Math.exp(-k * t);
+        double Gt = G.numberAtStart * Math.cosh(Math.sqrt(s * r) * t) - Math.sqrt(r / s) * H.numberAtStart *
+                Math.sinh(Math.sqrt(s * r) * t);
+        double Ht = H.numberAtStart * Math.cosh(Math.sqrt(s * r) * t) - Math.sqrt(s / r) * G.numberAtStart *
+                Math.sinh(Math.sqrt(s * r) * t);
         return new double[] {Gt, Ht};
     }
 
@@ -44,5 +46,16 @@ public class VictoryCalc {
     public double constantL() {
         // Formula taken from p. 13
         return s * Math.pow(G.numberAtStart, 2) - r * Math.pow(H.numberAtStart, 2);
+    }
+
+
+    /**
+     * Returns the time at which either pop hits zero.
+     */
+    public double[] constantLZeroPop() {
+        // Formula taken from p. 12
+        double Gt = Math.sqrt(constantL() / s);
+        double Ht = Math.sqrt(-constantL() / r);
+        return new double[] {Gt, Ht};
     }
 }
