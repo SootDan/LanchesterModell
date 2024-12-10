@@ -1,14 +1,17 @@
 package gfx;
 
 import lanchester.Population;
+import lanchester.VictoryCalc;
 import utils.TimerListener;
 import utils.TimerManager;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.Line2D;
 import java.util.ArrayList;
 
 public class CoordinateSystem extends JPanel implements TimerListener {
     int width, height;
+    public VictoryCalc victoryCalc;
     Population G, H;
     final double startGPop, startHPop;
 
@@ -19,12 +22,16 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     int border = 25, coordArrow = 5;
 
 
-    public CoordinateSystem(Population G, Population H) {
+    public CoordinateSystem(Population G, Population H, VictoryCalc victoryCalc) {
         this.G = G;
         this.H = H;
         startGPop = G.number;
         startHPop = H.number;
         maxX = Math.max(startGPop, startHPop);
+
+        // Check which pop loses. Draw coordinate system accordingly.
+        this.victoryCalc = victoryCalc;
+
         TimerManager.getInstance().addSubscriber(this);
     }
 
@@ -39,30 +46,32 @@ public class CoordinateSystem extends JPanel implements TimerListener {
         coordOrigin = new Vector2D(border, border);
         coordBounds = new Vector2D(width - border, height - border);
 
-        drawAxes(g);
+        drawAxes(g2d);
         drawCoordinateSystem(g);
         drawTimer(g);
-        drawPopGraph(g, TimerManager.ticks);
+        drawPopGraph(g2d, TimerManager.ticks);
     }
 
 
     /**
      * Draws the axes and their arrows.
      */
-    private void drawAxes(Graphics g) {
-        // X-Axis
-        g.drawLine((int) coordOrigin.x, (int) coordBounds.y, (int) coordBounds.x, (int) coordBounds.y);
-        g.drawLine((int) coordBounds.x - coordArrow, (int) coordBounds.y - coordArrow, (int) coordBounds.x,
-                (int) coordBounds.y);
-        g.drawLine((int) coordBounds.x, (int) coordBounds.y, (int) coordBounds.x - coordArrow,
-                (int) coordBounds.y + coordArrow);
+    private void drawAxes(Graphics2D g) {
+        Shape[] xAxis = {
+                new Line2D.Double(coordOrigin.x, coordBounds.y, coordBounds.x, coordBounds.y),
+                new Line2D.Double(coordBounds.x - coordArrow, coordBounds.y + coordArrow, coordBounds.x, coordBounds.y),
+                new Line2D.Double(coordBounds.x - coordArrow, coordBounds.y - coordArrow, coordBounds.x, coordBounds.y)
+        };
+        for (Shape shape: xAxis)
+            g.draw(shape);
 
-        // Y-Axis
-        g.drawLine((int) coordOrigin.x, (int) coordOrigin.y, (int) coordOrigin.x, (int) coordBounds.y);
-        g.drawLine((int) coordOrigin.x - coordArrow, (int) coordOrigin.y + coordArrow, (int) coordOrigin.x,
-                (int) coordOrigin.y);
-        g.drawLine((int) coordOrigin.x, (int) coordOrigin.y, (int) coordOrigin.x + coordArrow,
-                (int) coordOrigin.y + coordArrow);
+        Shape[] yAxis = {
+                new Line2D.Double(coordOrigin.x, coordOrigin.y, coordOrigin.x, coordBounds.y),
+                new Line2D.Double(coordOrigin.x - coordArrow, coordOrigin.y + coordArrow, coordOrigin.x, coordOrigin.y),
+                new Line2D.Double(coordOrigin.x + coordArrow, coordOrigin.y + coordArrow, coordOrigin.x, coordOrigin.y)
+        };
+        for (Shape shape: yAxis)
+            g.draw(shape);
     }
 
 
@@ -98,22 +107,46 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     /**
      * Draws the population over time.
      */
-    private void drawPopGraph(Graphics g, int ticks) {
+    private void drawPopGraph(Graphics2D g, int ticks) {
         // TODO: Actually calculate how the graphs would look
+        double Pt = victoryCalc.constantLZeroPop();
+
         double startG = 1.0 - startGPop / maxX;
+        System.out.println(startG);
+        double endG = victoryCalc.popAtTime(Pt)[0] / maxX;
+        System.out.println(endG);
+        if (endG < 0.0) endG = 0.0;
+
         double startH = 1.0 - startHPop / maxX;
+        double endH = 1.0 - victoryCalc.popAtTime(Pt)[1] / maxX;
+        if (endH < 0.0) endH = 0.0;
+        //System.out.println(endH);
+
+        Vector2D gStart = new Vector2D(coordXAxis.getFirst().x, (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startG + coordYAxis.getLast().y);
+        Vector2D gEnd = new Vector2D(coordXAxis.getLast().x, (coordYAxis.getFirst().y - coordYAxis.getLast().y) * endG + coordYAxis.getFirst().y);
+        Shape gVector = new Line2D.Double(gStart.x, gStart.y, gEnd.x, gEnd.y);
+        g.setColor(Color.PINK);
+        g.draw(gVector);
+
+        Vector2D hStart = new Vector2D(coordXAxis.getFirst().x, (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startH + coordYAxis.getLast().y);
+        Vector2D hEnd = new Vector2D(coordXAxis.getLast().x, (coordYAxis.getFirst().y - coordYAxis.getLast().y) * endH + coordYAxis.getFirst().y);
+        Shape hVector = new Line2D.Double(hStart.x, hStart.y, hEnd.x, hEnd.y);
+        g.setColor(Color.ORANGE);
+        g.draw(hVector);
+
+
 
         // G
-        g.setColor(Color.PINK);
+        /*g.setColor(Color.PINK);
         g.drawLine((int) coordXAxis.getFirst().x, (int) ((coordYAxis.getFirst().y - coordYAxis.getLast().y) * startG
                 + coordYAxis.getLast().y),
-                (int) coordXAxis.get(ticks).x, (int) coordYAxis.getFirst().y);
+                (int) coordXAxis.get(ticks).x, (int) coordYAxis.getFirst().y);*/
 
         // H
-        g.setColor(Color.ORANGE);
+        /*g.setColor(Color.ORANGE);
         g.drawLine((int) coordXAxis.getFirst().x, (int) (
                 (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startH) + (int) coordYAxis.getLast().y,
-                (int) coordXAxis.getLast().x, (int) coordYAxis.getFirst().y);
+                (int) coordXAxis.getLast().x, (int) coordYAxis.getFirst().y);*/
     }
 
 

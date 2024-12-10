@@ -50,12 +50,11 @@ public class VictoryCalc {
 
 
     /**
-     * Returns the time at which either pop hits zero.
+     * Returns the time when the losing pop hits zero.
      */
-    public double[] constantLZeroPop() {
+    public double constantLZeroPop() {
         // Formula taken from p. 12
-        double Gt = Math.sqrt(constantL() / s);
-        double Ht = Math.sqrt(-constantL() / r);
-        return new double[] {Gt, Ht};
+        double L = constantL();
+        return L > 0.0 ? Math.sqrt(L / s) : Math.sqrt(L / r);
     }
 }

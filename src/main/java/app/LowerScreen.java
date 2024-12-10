@@ -1,6 +1,7 @@
 package app;
 import gfx.CoordinateSystem;
 import lanchester.Population;
+import lanchester.VictoryCalc;
 import utils.Constants;
 import utils.TimerListener;
 import utils.TimerManager;
@@ -17,10 +18,12 @@ public class LowerScreen extends JPanel implements TimerListener {
     public double GStartPop, HStartPop;
     public JPanel gPanel, hPanel;
     public CoordinateSystem coordinateSystem;
+    public VictoryCalc victoryCalc;
 
-    public LowerScreen(Population G, Population H) {
+    public LowerScreen(Population G, Population H, VictoryCalc victoryCalc) {
         this.G = G;
         this.H = H;
+        this.victoryCalc = victoryCalc;
         GStartPop = G.number;
         HStartPop = H.number;
 
@@ -28,7 +31,7 @@ public class LowerScreen extends JPanel implements TimerListener {
 
         gPanel = createPopPanel(G);
         hPanel = createPopPanel(H);
-        coordinateSystem = new CoordinateSystem(G, H);
+        coordinateSystem = new CoordinateSystem(G, H, this.victoryCalc);
 
         setLayout(new BorderLayout());
         add(gPanel, BorderLayout.WEST);

@@ -1,5 +1,6 @@
 package app;
 import lanchester.Population;
+import lanchester.VictoryCalc;
 import utils.Constants;
 import utils.TimerListener;
 import utils.TimerManager;
@@ -27,6 +28,12 @@ public class Main {
        input.add(inputFrame);
        input.setVisible(true);
 
+       // Get the necessary calculations from VictoryCalc.
+       VictoryCalc victoryCalc = new VictoryCalc(G, H);
+       String winner = victoryCalc.victory();
+       double popAtZero = victoryCalc.constantLZeroPop();
+       System.out.println(winner);
+
        /*
         * Starts global timer.
         * To add your class as an event listener, implement TimerListener and add an onTimerTick() method.
@@ -34,7 +41,7 @@ public class Main {
        TimerManager.getInstance().start();
 
        MainScreen mainScreen = new MainScreen(G, H);
-       LowerScreen lowerScreen = new LowerScreen(G, H);
+       LowerScreen lowerScreen = new LowerScreen(G, H, victoryCalc);
 
        frame.setLayout(new BorderLayout());
        frame.add(mainScreen, BorderLayout.CENTER);
