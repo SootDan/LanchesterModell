@@ -19,6 +19,7 @@ public class LowerScreen extends JPanel implements TimerListener {
     public JPanel gPanel, hPanel;
     public CoordinateSystem coordinateSystem;
     public VictoryCalc victoryCalc;
+    public int ticks = 0;
 
     public LowerScreen(Population G, Population H, VictoryCalc victoryCalc) {
         this.G = G;
@@ -76,8 +77,11 @@ public class LowerScreen extends JPanel implements TimerListener {
     @Override
     public void onTimerTick() {
         // TODO: Add actual maths to this.
-        G.number -= 10;
-        H.number -= 5;
+        ticks++;
+        G.number = Math.round(G.popAtTime(H, ticks));
+        H.number = Math.round(H.popAtTime(G, ticks));
+        if (G.number < 0 || H.number < 0)
+            TimerManager.getInstance().stop();
         SwingUtilities.invokeLater(() -> {
             updatePopPanel(gPanel, G, GStartPop);
             updatePopPanel(hPanel, H, HStartPop);

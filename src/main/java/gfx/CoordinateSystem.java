@@ -13,22 +13,17 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     int width, height;
     public VictoryCalc victoryCalc;
     Population G, H;
-    final double startGPop, startHPop;
 
-    ArrayList<Vector2D> xAxis = new ArrayList<>(), yAxis = new ArrayList<>();
-    Vector2D origin, bounds, arrow;
+    Vector2D origin, bounds, xDelta, yDelta;
 
     double maxX;
-    int border = 25;
+    int border = 25, arrow = 5;
 
 
     public CoordinateSystem(Population G, Population H, VictoryCalc victoryCalc) {
         this.G = G;
         this.H = H;
-        startGPop = G.number;
-        startHPop = H.number;
-        maxX = Math.max(startGPop, startHPop);
-        arrow = new Vector2D(5.0, 5.0);
+        maxX = Math.max(G.numberAtStart, H.numberAtStart);
 
         // Check which pop loses. Draw coordinate system accordingly.
         this.victoryCalc = victoryCalc;
@@ -53,11 +48,16 @@ public class CoordinateSystem extends JPanel implements TimerListener {
         bounds = new Vector2D(width, height);
         bounds = Vector2D.homogenousCoordinates(bounds, -border, -border);
 
-        for (Axis axis: Axis.values())
+        // Deltas for space between coordinate ticks
+        xDelta = new Vector2D((bounds.x - origin.x) / Axis.X.incrementer, 0.0);
+        yDelta = new Vector2D(0.0, (bounds.y - border * 2) / Axis.Y.incrementer);
+
+        for (Axis axis: Axis.values()) {
             drawAxes(g2d, axis);
-        drawCoordinateSystem(g2d, 10, 5);
-        //drawTimer(g);
-        //drawPopGraph(g2d, TimerManager.ticks);
+            drawCoordinateSystem(g2d, axis);
+        }
+        drawTimer(g);
+        drawPopGraph(g2d, TimerManager.ticks);
     }
 
 
@@ -72,10 +72,10 @@ public class CoordinateSystem extends JPanel implements TimerListener {
         g.draw(axes);
 
         // Arrows
-        double baseX1 = tipX - arrow.x * (axis == Axis.X ? 1 : -1);
-        double baseY1 = tipY + arrow.y;
-        double baseX2 = tipX - arrow.x;
-        double baseY2 = tipY - arrow.y * (axis == Axis.X ? 1 : -1);
+        double baseX1 = tipX - arrow * (axis == Axis.X ? 1 : -1);
+        double baseY1 = tipY + arrow;
+        double baseX2 = tipX - arrow;
+        double baseY2 = tipY - arrow * (axis == Axis.X ? 1 : -1);
         g.draw(new Line2D.Double(tipX, tipY, baseX1, baseY1));
         g.draw(new Line2D.Double(tipX, tipY, baseX2, baseY2));
     }
@@ -83,48 +83,37 @@ public class CoordinateSystem extends JPanel implements TimerListener {
 
     /**
      * Draws the coordinate system including arrows.
+     * Axis.X is p(t).
+     * Axis.Y is p (sets max value to the highest pop size at p(0)).
      */
-    public void drawCoordinateSystem(Graphics2D g, double xIncrement, double yIncrement) {
-        // x-axis
-        Vector2D xDelta = new Vector2D((bounds.x - origin.x) / xIncrement, bounds.y);
-        for (int i = 1; i <= xIncrement; i++) {
-            Line2D line2D = new Line2D.Double(xDelta.x * i, xDelta.y - arrow.y,
-                    xDelta.x * i, xDelta.y + arrow.y);
+    public void drawCoordinateSystem(Graphics2D g, Axis axis) {
+        // Writes the descriptors for the axes only for the first call
+        if (axis == Axis.X) {
+            g.drawString("p", (float) origin.x, (float) (origin.y - arrow));
+            g.drawString("p(t)", (float) bounds.x, (float) bounds.y);
+        }
+
+        // Draws the actual ticks for each axis
+        Vector2D delta = new Vector2D(
+            axis == Axis.X ? (bounds.x - origin.x) / axis.incrementer : origin.x,
+            axis == Axis.X ? bounds.y : (bounds.y - border * 2) / axis.incrementer
+        );
+        for (int i = 1; i <= axis.incrementer; i++) {
+            Line2D line2D = new Line2D.Double(
+                axis == Axis.X ? delta.x * i : delta.x - arrow,
+                axis == Axis.X ? delta.y - arrow : bounds.y - i * delta.y,
+                axis == Axis.X ? delta.x * i : delta.x + arrow,
+                axis == Axis.X ? delta.y + arrow : bounds.y - i * delta.y
+            );
             g.draw(line2D);
-            g.drawString("" + i, (int)line2D.getX1(), (int)(line2D.getY2() + arrow.y * 2));
-        }
 
-        // y-axis
-        Vector2D yDelta = new Vector2D(origin.x, bounds.y - (bounds.y - origin.y) / yIncrement);
-        g.draw(new Line2D.Double(yDelta.x - arrow.x, yDelta.y,
-                yDelta.x + arrow.x, yDelta.y));
-        for (int i = 1; i <= yIncrement; i++) {
-            Line2D line2D = new Line2D.Double(yDelta.x - arrow.x, yDelta.y * i,
-                    yDelta.x + arrow.x, yDelta.y * i);
-            g.draw(line2D);
+            String descriptor = axis == Axis.X ? "" + i : "" + (int) (i * (maxX / axis.incrementer));
+            g.drawString(
+                descriptor,
+                (int) (axis == Axis.X ? line2D.getX1() : line2D.getX1() - arrow * 4),
+                (int) (axis == Axis.X ? line2D.getY2() + arrow * 3 : line2D.getY2())
+            );
         }
-       // g.draw(line2D);
-        /*
-        for (int i = 0; i <= 5; i++) {
-            coordYAxis.add(new Vector2D(coordOrigin.x, coordBounds.y + -incrementer * i));
-            g.drawLine((int) coordYAxis.get(i).x - coordArrow, (int) coordYAxis.get(i).y,
-                    (int) coordYAxis.get(i).x + coordArrow, (int) coordYAxis.get(i).y);
-            g.drawString(String.format("" + i * popSize),
-                    (int) coordYAxis.get(i).x - coordArrow * 5, (int) coordYAxis.get(i).y + coordArrow);
-        }
-
-        // Set ten dimensions on the labelled y-axis
-        incrementer = (int) (coordBounds.x - coordOrigin.x) / 11;
-        g.drawString("p(t)", (int) coordBounds.x + coordArrow, (int) coordBounds.y);
-        for (int i = 0; i <= 10; i++) {
-            coordXAxis.add(new Vector2D(coordOrigin.x + incrementer * i, coordBounds.y));
-            g.drawLine((int) coordXAxis.get(i).x, (int) coordXAxis.get(i).y - coordArrow,
-                    (int) coordXAxis.get(i).x, (int) coordXAxis.get(i).y + coordArrow);
-            g.drawString("" + i, (int) coordXAxis.get(i).x, (int) coordXAxis.get(i).y  + coordArrow * 3);
-        }*/
-
-        // Writes the descriptors for the axes
-        g.drawString("p", (float) origin.x, (float) (origin.y - arrow.y));
     }
 
 
@@ -135,48 +124,33 @@ public class CoordinateSystem extends JPanel implements TimerListener {
         // TODO: Actually calculate how the graphs would look
         double Pt = victoryCalc.constantLZeroPop();
 
-        double startG = 1.0 - startGPop / maxX;
-        System.out.println(startG);
-        double endG = victoryCalc.popAtTime(Pt)[0] / maxX;
-        System.out.println(endG);
+        double startG = G.numberAtStart / maxX;
+        double startH = H.numberAtStart / maxX;
+        double endG = G.popAtTime(H, 5) / maxX;
+        double endH = H.popAtTime(G, Pt) / maxX;
         if (endG < 0.0) endG = 0.0;
-
-        double startH = 1.0 - startHPop / maxX;
-        double endH = 1.0 - victoryCalc.popAtTime(Pt)[1] / maxX;
         if (endH < 0.0) endH = 0.0;
-        //System.out.println(endH);
 
-        Vector2D gStart = new Vector2D(xAxis.getFirst().x, (yAxis.getFirst().y - yAxis.getLast().y) * startG + yAxis.getLast().y);
-        Vector2D gEnd = new Vector2D(xAxis.getLast().x, (yAxis.getFirst().y - yAxis.getLast().y) * endG + yAxis.getFirst().y);
-        Shape gVector = new Line2D.Double(gStart.x, gStart.y, gEnd.x, gEnd.y);
+        Vector2D gStart = new Vector2D(origin.x, bounds.y - (yDelta.y * Axis.Y.incrementer * startG));
+        // TODO: popAtTime isn't working. Why?
+        Vector2D gEnd = new Vector2D(xDelta.x * Axis.X.incrementer, bounds.y - (
+                yDelta.y * Axis.Y.incrementer * endG));
+        Line2D gLine = new Line2D.Double(gStart.x, gStart.y, gEnd.x, gEnd.y);
         g.setColor(Color.PINK);
-        g.draw(gVector);
+        g.draw(gLine);
 
-        Vector2D hStart = new Vector2D(xAxis.getFirst().x, (yAxis.getFirst().y - yAxis.getLast().y) * startH + yAxis.getLast().y);
-        Vector2D hEnd = new Vector2D(xAxis.getLast().x, (yAxis.getFirst().y - yAxis.getLast().y) * endH + yAxis.getFirst().y);
-        Shape hVector = new Line2D.Double(hStart.x, hStart.y, hEnd.x, hEnd.y);
+        Vector2D hStart = new Vector2D(origin.x, bounds.y - (yDelta.y * Axis.Y.incrementer * startH));
+        Vector2D hEnd = new Vector2D(xDelta.x * Axis.X.incrementer, bounds.y - (
+                yDelta.y * Axis.Y.incrementer * endH));
+        Line2D hLine = new Line2D.Double(hStart.x, hStart.y, hEnd.x, hEnd.y);
         g.setColor(Color.ORANGE);
-        g.draw(hVector);
-
-
-
-        // G
-        /*g.setColor(Color.PINK);
-        g.drawLine((int) coordXAxis.getFirst().x, (int) ((coordYAxis.getFirst().y - coordYAxis.getLast().y) * startG
-                + coordYAxis.getLast().y),
-                (int) coordXAxis.get(ticks).x, (int) coordYAxis.getFirst().y);*/
-
-        // H
-        /*g.setColor(Color.ORANGE);
-        g.drawLine((int) coordXAxis.getFirst().x, (int) (
-                (coordYAxis.getFirst().y - coordYAxis.getLast().y) * startH) + (int) coordYAxis.getLast().y,
-                (int) coordXAxis.getLast().x, (int) coordYAxis.getFirst().y);*/
+        g.draw(hLine);
     }
 
 
     private void drawTimer(Graphics g) {
         // TODO: Add time system
-        //g.drawString("t elapsed: " + TimerManager.ticks, (int) coordXAxis.get(8).x, coordArrow * 2);
+        g.drawString("t elapsed: " + TimerManager.ticks, (int) (bounds.x - origin.x * 2), (int) origin.y);
     }
 
 

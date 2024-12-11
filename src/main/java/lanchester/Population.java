@@ -17,4 +17,11 @@ public class Population {
 
         numberAtStart = this.number;
     }
+
+    public double popAtTime(Population p, double t) {
+        return numberAtStart * Math.cosh(
+                Math.sqrt(attackStrength * p.attackStrength) * t)
+                - Math.sqrt(p.attackStrength / attackStrength) * p.numberAtStart * Math.sinh(
+                Math.sqrt(attackStrength * p.attackStrength) * t);
+    }
 }
