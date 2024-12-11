@@ -23,8 +23,13 @@ public class Vector2D {
     /**
      * Basic vector addition that returns a new vector.
      */
-    public Vector2D addition(Vector2D u, Vector2D v) {
+    public static Vector2D addition(Vector2D u, Vector2D v) {
         return new Vector2D(u.x + v.x, u.y + v.y);
+    }
+
+    public void addition(Vector2D v) {
+        x += v.x;
+        y += v.y;
     }
 
 
@@ -75,7 +80,21 @@ public class Vector2D {
      * Translates given x and y into x1 and y1.
      * tx and ty are the necessary shift parameters to accomplish this.
      */
-    public Vector2D homogenousCoordinates(Vector2D v, double tx, double ty) {
+    public static Vector2D homogenousCoordinates(Vector2D v, double tx, double ty) {
         return new Vector2D(v.x + tx, v.y + ty);
+    }
+
+
+    public Vector2D homogenousCoordinates(Vector2D v, double t, boolean xShift) {
+        if (xShift) return new Vector2D(v.x + t, v.y);
+        else return new Vector2D(v.x, v.y + t);
+    }
+
+
+    /**
+     * Returns a string of both vector coordinates. Useful for debugging.
+     */
+    public String toString() {
+        return "(" + x + ", " + y + ")";
     }
 }
