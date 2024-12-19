@@ -1,4 +1,4 @@
-package gfx;
+package utils;
 
 /**
  * Vectors and matrix transformation.
@@ -7,7 +7,6 @@ package gfx;
 public class Vector2D {
     public double x, y;
 
-    
     public Vector2D(double x, double y) {
         this.x = x;
         this.y = y;
@@ -19,13 +18,6 @@ public class Vector2D {
         return new Vector2D(0.0, 0.0);
     }
 
-
-    /**
-     * Basic vector addition that returns a new vector.
-     */
-    public static Vector2D addition(Vector2D u, Vector2D v) {
-        return new Vector2D(u.x + v.x, u.y + v.y);
-    }
 
     public void addition(Vector2D v) {
         x += v.x;
@@ -73,21 +65,6 @@ public class Vector2D {
         if (isZero(v) || isZero(u))
             throw new Exception("Zero vector.");
         return Math.acos(scalarProduct(u, v) / (length(u) * length(v)));
-    }
-
-
-    /**
-     * Translates given x and y into x1 and y1.
-     * tx and ty are the necessary shift parameters to accomplish this.
-     */
-    public static Vector2D homogenousCoordinates(Vector2D v, double tx, double ty) {
-        return new Vector2D(v.x + tx, v.y + ty);
-    }
-
-
-    public Vector2D homogenousCoordinates(Vector2D v, double t, boolean xShift) {
-        if (xShift) return new Vector2D(v.x + t, v.y);
-        else return new Vector2D(v.x, v.y + t);
     }
 
 
