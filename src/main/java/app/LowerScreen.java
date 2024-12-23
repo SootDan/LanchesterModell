@@ -80,8 +80,6 @@ public class LowerScreen extends JPanel implements TimerListener {
         ticks++;
         G.number = Math.round(G.popAtTime(H, ticks));
         H.number = Math.round(H.popAtTime(G, ticks));
-        if (G.number < 0 || H.number < 0)
-            TimerManager.getInstance().stop();
         SwingUtilities.invokeLater(() -> {
             updatePopPanel(gPanel, G, GStartPop);
             updatePopPanel(hPanel, H, HStartPop);

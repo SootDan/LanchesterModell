@@ -1,4 +1,6 @@
 package lanchester;
+import utils.TimerListener;
+import utils.TimerManager;
 
 public class Population {
     // G and H
@@ -19,9 +21,12 @@ public class Population {
     }
 
     public double popAtTime(Population p, double t) {
-        return numberAtStart * Math.cosh(
+        double newPop = numberAtStart * Math.cosh(
                 Math.sqrt(attackStrength * p.attackStrength) * t)
                 - Math.sqrt(p.attackStrength / attackStrength) * p.numberAtStart * Math.sinh(
                 Math.sqrt(attackStrength * p.attackStrength) * t);
+        if (newPop <= 0.0)
+            newPop = 0.0;
+        return newPop;
     }
 }

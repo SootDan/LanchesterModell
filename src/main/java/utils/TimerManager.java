@@ -50,10 +50,9 @@ public class TimerManager {
      * Notifies all listeners that a tick happened.
      */
     private void notifyListeners() {
-        ticks++;
-
         for (TimerListener listener : listeners)
             listener.onTimerTick();
+        ticks++;
     }
 }
 
