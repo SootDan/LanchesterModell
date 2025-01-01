@@ -49,6 +49,7 @@ public class InputFrame extends JPanel {
         gAttack.setColumns(10);
         hAttack.setColumns(10);
 
+        //add everything
         gPanel.add(gPopNumber);
         gPanel.add(gAttack);
         hPanel.add(hPopNumber);
@@ -56,7 +57,7 @@ public class InputFrame extends JPanel {
         buttons.add(startButton);
         buttons.add(clearButton);
 
-        //TODO: button creates the Populations that will be used in rest of code.
+        //TODO: button creates the Populations that will be used in rest of code, as well as the new frame that holds the animations.
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
