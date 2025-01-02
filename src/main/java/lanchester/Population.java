@@ -2,20 +2,24 @@ package lanchester;
 import utils.TimerListener;
 import utils.TimerManager;
 
+import java.awt.*;
+
 public class Population {
     // G and H
     public double number;
     // r and s
     public double attackStrength;
+    public Color color;
 
     // This never changes and is tied to number at initialization.
     // Useful for calculations and to not have to constantly invoke it.
     public final double numberAtStart;
 
     
-    public Population(double number, double attackStrength) {
+    public Population(double number, double attackStrength, Color color) {
         this.number = number;
         this.attackStrength = attackStrength;
+        this.color = color;
 
         numberAtStart = this.number;
     }

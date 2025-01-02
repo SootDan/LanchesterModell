@@ -58,7 +58,8 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             drawCoordinateSystem(g2d, axis);
         }
         drawTimer(g);
-        drawPopGraph(g2d, TimerManager.ticks);
+        drawPopGraph(g2d, G, H);
+        drawPopGraph(g2d, H, G);
     }
 
 
@@ -90,7 +91,7 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      * Axis.Y is p (sets max value to the highest pop size at p(0)).
      */
     public void drawCoordinateSystem(Graphics2D g, Axis axis) {
-        // Writes the descriptors for the axes only for the first call
+        // Writes the descriptors for the axes only for the first function call.
         if (axis == Axis.X) {
             g.drawString("p", (float) origin.x, (float) (bounds.y - arrow));
             g.drawString("p(t)", (float) bounds.x, (float) origin.y);
@@ -98,7 +99,7 @@ public class CoordinateSystem extends JPanel implements TimerListener {
 
         AffineTransform base = g.getTransform();
         AffineTransform affineTransform = new AffineTransform();
-        // Draws the actual ticks for each axis
+        // Draws the actual ticks for each axis.
         for (int i = 0; i <= axis.incrementer; i++) {
             double dx = axis == Axis.X ? deltaX / axis.incrementer * i : 0.0;
             double dy = axis == Axis.X ? 0.0 : deltaY / axis.incrementer * i;
@@ -123,28 +124,39 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     /**
      * Draws the population over time.
      */
-    private void drawPopGraph(Graphics2D g, int ticks) {
+    private void drawPopGraph(Graphics2D g, Population p1, Population p2) {
         double Pt = victoryCalc.constantLZeroPop();
+        double increment = 100.0;
+        double pIncrement = Pt / increment;
+        Vector2D[] popAtT = new Vector2D[(int) increment];
 
-        double startG = G.numberAtStart / maxX;
-        double startH = H.numberAtStart / maxX;
-        double endG = G.popAtTime(H, 5) / maxX;
-        double endH = H.popAtTime(G, Pt) / maxX;
-        if (endG < 0.0) endG = 0.0;
-        if (endH < 0.0) endH = 0.0;
-
-        g.setColor(Color.PINK);
-        Line2D gLine = new Line2D.Double(x0, y0 + startG * deltaY, x1, y0 + endG * deltaY);
-        g.draw(gLine);
-
-        g.setColor(Color.ORANGE);
-        Line2D hLine = new Line2D.Double(x0, y0 + startH * deltaY, x1, y0 + endH * deltaY);
-        g.draw(hLine);
+        for (int i = 0; i < popAtT.length; i++) {
+            double t = (double) i * pIncrement;
+            double popNum = p1.popAtTime(p2, t) / maxX;
+            if (popNum < 0.0) popNum = 0.0;
+            popAtT[i] = new Vector2D(x0 + (i / increment) * deltaX, y0 + popNum * deltaY);
+        }
+        drawWaveForm(g, popAtT, p1.equals(G));
     }
 
 
     private void drawTimer(Graphics g) {
         g.drawString("t elapsed: " + TimerManager.ticks, (int) (bounds.x - origin.x * 2), (int) bounds.y);
+    }
+
+
+    /**
+     * Draws a polyline approximating a wave form.
+     */
+    private void drawWaveForm(Graphics2D g, Vector2D[] popAtT, boolean isG) {
+        int[] xs = new int[popAtT.length];
+        int[] ys = new int[popAtT.length];
+        for (int i = 0; i < popAtT.length; i++) {
+            xs[i] = (int) popAtT[i].x;
+            ys[i] = (int) popAtT[i].y;
+        }
+        g.setColor((isG ? G.color : H.color));
+        g.drawPolyline(xs, ys, popAtT.length);
     }
 
 
