@@ -1,7 +1,9 @@
 package gfx;
 
+import lanchester.MathManager;
 import lanchester.Population;
 import lanchester.VictoryCalc;
+import utils.Constants;
 import utils.TimerListener;
 import utils.TimerManager;
 import javax.swing.*;
@@ -10,11 +12,10 @@ import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 
 public class CoordinateSystem extends JPanel implements TimerListener {
+    private final MathManager mathManager;
     int width, height;
-    //public VictoryCalc victoryCalc;
-    Population G, H;
 
-    Vector2D origin, bounds, xDelta, yDelta;
+    Vector2D origin, bounds;
 
     double maxX;
     int border = 25, arrow = 5;
@@ -23,13 +24,9 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     double x0, x1, y0, y1;
     double deltaX, deltaY;
 
-    public CoordinateSystem(Population G, Population H) {
-        this.G = G;
-        this.H = H;
-        maxX = Math.max(G.numberAtStart, H.numberAtStart);
-
-        // Check which pop loses. Draw coordinate system accordingly.
-        //this.victoryCalc = victoryCalc;
+    public CoordinateSystem(MathManager mathManager) {
+        this.mathManager = mathManager;
+        maxX = Math.max(mathManager.G.numberAtStart, mathManager.H.numberAtStart);
 
         TimerManager.getInstance().addSubscriber(this);
     }
@@ -58,8 +55,8 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             drawCoordinateSystem(g2d, axis);
         }
         drawTimer(g);
-        drawPopGraph(g2d, G, H);
-        drawPopGraph(g2d, H, G);
+        drawPopGraph(g2d, mathManager.G, mathManager.H);
+        drawPopGraph(g2d, mathManager.H, mathManager.G);
     }
 
 
@@ -125,23 +122,20 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      * Draws the population over time.
      */
     private void drawPopGraph(Graphics2D g, Population p1, Population p2) {
-        /*//double Pt = victoryCalc.constantLZeroPop();
-        double increment = 100.0;
-        //double pIncrement = Pt / increment;
-        Vector2D[] popAtT = new Vector2D[(int) increment];
+        double tPlus = mathManager.victoryCalc.tPlus();
+        Vector2D[] popAtT = new Vector2D[Constants.MAX_TICKS];
 
         for (int i = 0; i < popAtT.length; i++) {
-            double t = (double) i * pIncrement;
-            double popNum = p1.popAtTime(p2, t) / maxX;
+            double popNum = mathManager.G.number / maxX;
             if (popNum < 0.0) popNum = 0.0;
-            popAtT[i] = new Vector2D(x0 + (i / increment) * deltaX, y0 + popNum * deltaY);
+            popAtT[i] = new Vector2D(x0 + deltaX, y0 + popNum * deltaY);
         }
-        drawWaveForm(g, popAtT, p1.equals(G));*/
+        drawWaveForm(g, popAtT, p1.equals(mathManager.G));
     }
 
 
     private void drawTimer(Graphics g) {
-        g.drawString("t elapsed: " + TimerManager.ticks, (int) (bounds.x - origin.x * 2), (int) bounds.y);
+        g.drawString("t elapsed: " + mathManager.ticks, (int) (bounds.x - origin.x * 2), (int) bounds.y);
     }
 
 
@@ -155,15 +149,13 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             xs[i] = (int) popAtT[i].x;
             ys[i] = (int) popAtT[i].y;
         }
-        g.setColor((isG ? G.color : H.color));
+        g.setColor((isG ? mathManager.G.color : mathManager.H.color));
         g.drawPolyline(xs, ys, popAtT.length);
     }
 
 
     @Override
     public void onTimerTick() {
-        if (G.number <= 0.0 || H.number <= 0.0)
-            TimerManager.getInstance().stop();
         repaint();
     }
 }

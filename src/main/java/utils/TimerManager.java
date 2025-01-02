@@ -11,7 +11,6 @@ public class TimerManager {
     // Creates a singleton instance that can be used by every class.
     private static TimerManager instance;
     private Timer timer;
-    public static int ticks = 0;
     private List<TimerListener> listeners;
 
     
@@ -52,7 +51,6 @@ public class TimerManager {
     private void notifyListeners() {
         for (TimerListener listener : listeners)
             listener.onTimerTick();
-        ticks++;
     }
 }
 

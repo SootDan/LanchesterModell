@@ -1,5 +1,6 @@
 package lanchester;
 
+import utils.Constants;
 import utils.TimerListener;
 import utils.TimerManager;
 
@@ -9,20 +10,36 @@ import utils.TimerManager;
 public class MathManager implements TimerListener {
     public Population G, H;
     public int ticks = 0;
+    public VictoryCalc victoryCalc;
 
 
     public MathManager(Population G, Population H) {
         this.G = G;
         this.H = H;
+        this.victoryCalc = new VictoryCalc(G, H);
 
         TimerManager.getInstance().addSubscriber(this);
     }
 
 
+    /**
+     * Updates the population numbers at a pace defined by MAX_TICKS.
+     * Also stops the clock when the ticks exceed MAX_TICKS.
+     */
     @Override
     public void onTimerTick() {
+        double increment = victoryCalc.tPlus() / (double) Constants.MAX_TICKS;
+        G.number = G.popAtTime(H, increment * ticks);
+        H.number = H.popAtTime(G, increment * ticks);
         ticks++;
-        G.number = Math.round(G.popAtTime(H, ticks));
-        H.number = Math.round(H.popAtTime(G, ticks));
+
+        System.out.println("G: " + G.number);
+        System.out.println("H: " + H.number);
+        System.out.println("Tick: " + ticks);
+
+        if (ticks >= Constants.MAX_TICKS)
+            TimerManager.getInstance().stop();
+
+
     }
 }

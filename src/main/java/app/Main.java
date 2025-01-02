@@ -10,8 +10,8 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Main {
-   static Population G = new Population(400, 0.3, Color.PINK);
-   static Population H = new Population(300, 0.5, Color.ORANGE);
+   static Population G = new Population(200, 1, Color.PINK);
+   static Population H = new Population(100, 8, Color.ORANGE);
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Lanchester-Modell");
