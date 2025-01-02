@@ -1,7 +1,7 @@
 package app;
 import gfx.CoordinateSystem;
+import lanchester.MathManager;
 import lanchester.Population;
-import lanchester.VictoryCalc;
 import utils.Constants;
 import utils.TimerListener;
 import utils.TimerManager;
@@ -18,13 +18,12 @@ public class LowerScreen extends JPanel implements TimerListener {
     public double GStartPop, HStartPop;
     public JPanel gPanel, hPanel;
     public CoordinateSystem coordinateSystem;
-    public VictoryCalc victoryCalc;
-    public int ticks = 0;
+    public MathManager mathManager;
 
-    public LowerScreen(Population G, Population H, VictoryCalc victoryCalc) {
-        this.G = G;
-        this.H = H;
-        this.victoryCalc = victoryCalc;
+    public LowerScreen(MathManager mathManager) {
+        this.mathManager = mathManager;
+        this.G = mathManager.G;
+        this.H = mathManager.H;
         GStartPop = G.number;
         HStartPop = H.number;
 
@@ -32,7 +31,7 @@ public class LowerScreen extends JPanel implements TimerListener {
 
         gPanel = createPopPanel(G);
         hPanel = createPopPanel(H);
-        coordinateSystem = new CoordinateSystem(G, H, this.victoryCalc);
+        coordinateSystem = new CoordinateSystem(G, H);
 
         setLayout(new BorderLayout());
         add(gPanel, BorderLayout.WEST);
@@ -76,13 +75,7 @@ public class LowerScreen extends JPanel implements TimerListener {
 
     @Override
     public void onTimerTick() {
-        // TODO: Add actual maths to this.
-        ticks++;
-        G.number = Math.round(G.popAtTime(H, ticks));
-        H.number = Math.round(H.popAtTime(G, ticks));
-        SwingUtilities.invokeLater(() -> {
-            updatePopPanel(gPanel, G, GStartPop);
-            updatePopPanel(hPanel, H, HStartPop);
-        });
+        updatePopPanel(gPanel, G, GStartPop);
+        updatePopPanel(hPanel, H, HStartPop);
     }
 }

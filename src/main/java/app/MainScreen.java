@@ -1,6 +1,7 @@
 package app;
 
 import gfx.GraphicsMain;
+import lanchester.MathManager;
 import lanchester.Population;
 import lanchester.VictoryCalc;
 import utils.Constants;
@@ -17,11 +18,12 @@ public class MainScreen extends JPanel implements TimerListener {
 
     public JPanel gPanel, hPanel;
     public Population G, H;
-    public int ticks = 0;
+    public MathManager mathManager;
 
-    public MainScreen(Population G, Population H) {
-        this.G = G;
-        this.H = H;
+    public MainScreen(MathManager mathManager) {
+        this.mathManager = mathManager;
+        this.G = mathManager.G;
+        this.H = mathManager.H;
         this.setSize(Constants.WIDTH, Constants.MAIN_SCREEN_HEIGHT);
 
         gPanel = drawPanel(G, G.color);
@@ -47,10 +49,6 @@ public class MainScreen extends JPanel implements TimerListener {
 
     @Override
     public void onTimerTick() {
-        ticks++;
-        G.number = Math.round(G.popAtTime(H, ticks));
-        H.number = Math.round(H.popAtTime(G, ticks));
-
         gPanel.repaint();
         hPanel.repaint();
     }

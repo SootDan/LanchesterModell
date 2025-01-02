@@ -63,9 +63,9 @@ public class InputFrame extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.start(parseInt(gPopNumber.getText()), parseInt(gAttack.getText()),
+                /*Main.start(parseInt(gPopNumber.getText()), parseInt(gAttack.getText()),
                         parseInt(hPopNumber.getText()), parseInt(hAttack.getText()));
-            }
+            */}
         });
 
         this.add(gPanel);

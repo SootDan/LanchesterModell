@@ -11,7 +11,7 @@ import java.awt.geom.Line2D;
 
 public class CoordinateSystem extends JPanel implements TimerListener {
     int width, height;
-    public VictoryCalc victoryCalc;
+    //public VictoryCalc victoryCalc;
     Population G, H;
 
     Vector2D origin, bounds, xDelta, yDelta;
@@ -23,13 +23,13 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     double x0, x1, y0, y1;
     double deltaX, deltaY;
 
-    public CoordinateSystem(Population G, Population H, VictoryCalc victoryCalc) {
+    public CoordinateSystem(Population G, Population H) {
         this.G = G;
         this.H = H;
         maxX = Math.max(G.numberAtStart, H.numberAtStart);
 
         // Check which pop loses. Draw coordinate system accordingly.
-        this.victoryCalc = victoryCalc;
+        //this.victoryCalc = victoryCalc;
 
         TimerManager.getInstance().addSubscriber(this);
     }
@@ -125,9 +125,9 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      * Draws the population over time.
      */
     private void drawPopGraph(Graphics2D g, Population p1, Population p2) {
-        double Pt = victoryCalc.constantLZeroPop();
+        /*//double Pt = victoryCalc.constantLZeroPop();
         double increment = 100.0;
-        double pIncrement = Pt / increment;
+        //double pIncrement = Pt / increment;
         Vector2D[] popAtT = new Vector2D[(int) increment];
 
         for (int i = 0; i < popAtT.length; i++) {
@@ -136,7 +136,7 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             if (popNum < 0.0) popNum = 0.0;
             popAtT[i] = new Vector2D(x0 + (i / increment) * deltaX, y0 + popNum * deltaY);
         }
-        drawWaveForm(g, popAtT, p1.equals(G));
+        drawWaveForm(g, popAtT, p1.equals(G));*/
     }
 
 

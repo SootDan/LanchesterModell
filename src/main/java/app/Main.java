@@ -1,4 +1,5 @@
 package app;
+import lanchester.MathManager;
 import lanchester.Population;
 import lanchester.VictoryCalc;
 import utils.Constants;
@@ -29,19 +30,15 @@ public class Main {
        input.setVisible(true);
 
        // Get the necessary calculations from VictoryCalc.
-       VictoryCalc victoryCalc = new VictoryCalc(G, H);
-       String winner = victoryCalc.victory();
-       double popAtZero = victoryCalc.constantLZeroPop();
-       System.out.println(winner);
-
+       MathManager mathManager = new MathManager(G, H);
        /*
         * Starts global timer.
         * To add your class as an event listener, implement TimerListener and add an onTimerTick() method.
         */
        TimerManager.getInstance().start();
 
-       MainScreen mainScreen = new MainScreen(G, H);
-       LowerScreen lowerScreen = new LowerScreen(G, H, victoryCalc);
+       MainScreen mainScreen = new MainScreen(mathManager);
+       LowerScreen lowerScreen = new LowerScreen(mathManager);
 
        frame.setLayout(new BorderLayout());
        frame.add(mainScreen, BorderLayout.CENTER);
@@ -50,7 +47,7 @@ public class Main {
        frame.setVisible(true);
     }
 
-    public static void start(int gNumber, int gAttackStrength, int hNumber, int hAttackStrenght){
+    /*public static void start(int gNumber, int gAttackStrength, int hNumber, int hAttackStrenght){
 
        Population G2 = new Population(gNumber, gAttackStrength, Color.PINK);
        Population H2 = new Population(hNumber, hAttackStrenght, Color.ORANGE);
@@ -70,6 +67,7 @@ public class Main {
         * Starts global timer.
         * To add your class as an event listener, implement TimerListener and add an onTimerTick() method.
         */
+   /*
        TimerManager.getInstance().start();
 
        MainScreen mainScreen = new MainScreen(G2, H2);
@@ -81,5 +79,5 @@ public class Main {
 
        frame.setVisible(true);
 
-    }
+    }*/
 }
