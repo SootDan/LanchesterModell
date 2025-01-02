@@ -26,10 +26,10 @@ public class MainScreen extends JPanel implements TimerListener {
         this.H = mathManager.H;
         this.setSize(Constants.WIDTH, Constants.MAIN_SCREEN_HEIGHT);
 
-        gPanel = drawPanel(G, G.color);
+        gPanel = drawPanel(G);
         gPanel.add(new JLabel("Population G"));
 
-        hPanel = drawPanel(H, H.color);
+        hPanel = drawPanel(H);
         hPanel.add(new JLabel("Population H"));
 
         this.setLayout(new GridLayout(1, 2, 0, 0));
@@ -37,13 +37,15 @@ public class MainScreen extends JPanel implements TimerListener {
         this.add(gPanel);
         this.add(hPanel);
 
+        TimerManager.getInstance().addSubscriber(this);
+
     }
 
-    public GraphicsMain drawPanel(Population P, Color BGcolor){
+    public GraphicsMain drawPanel(Population P){
         JPanel panel = new JPanel();
         panel.setPreferredSize(new Dimension(Constants.MAIN_SCREEN_PANEL_WIDTH, Constants.MAIN_SCREEN_HEIGHT));
 
-        return new GraphicsMain(P, BGcolor);
+        return new GraphicsMain(P);
     }
 
 

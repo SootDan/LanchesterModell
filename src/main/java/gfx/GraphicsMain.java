@@ -9,12 +9,10 @@ import java.awt.*;
 public class GraphicsMain extends JPanel {
 
     public Population P;
-    public Color BGcolor;
     private final int diameter = 15;
 
-    public GraphicsMain(Population P, Color BGcolor){
+    public GraphicsMain(Population P){
          this.P = P;
-         this.BGcolor = BGcolor;
     }
 
     public void paintComponent(Graphics g){
@@ -22,7 +20,7 @@ public class GraphicsMain extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        g.setColor(BGcolor);
+        g.setColor(P.color);
         g.fillRect(0,0, this.getWidth(), this.getHeight());
 
         g.setColor(Color.black);
