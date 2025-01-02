@@ -55,6 +55,6 @@ public class VictoryCalc {
     public double constantLZeroPop() {
         // Formula taken from p. 12
         double L = constantL();
-        return L > 0.0 ? Math.sqrt(L / s) : Math.sqrt(L / r);
+        return L > 0.0 ? Math.sqrt(L / s) : Math.sqrt(-L / r);
     }
 }
