@@ -44,18 +44,15 @@ public class MainScreen extends JPanel implements TimerListener {
         return new GraphicsMain(P, BGcolor);
     }
 
-    public void updatePanel(JPanel panel, Population P) {
-        panel.repaint();
-    }
-
 
     @Override
     public void onTimerTick() {
         ticks++;
         G.number = Math.round(G.popAtTime(H, ticks));
         H.number = Math.round(H.popAtTime(G, ticks));
-        updatePanel(gPanel, G);
-        updatePanel(hPanel, H);
+
+        gPanel.repaint();
+        hPanel.repaint();
     }
 
 }

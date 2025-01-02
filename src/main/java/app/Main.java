@@ -49,4 +49,37 @@ public class Main {
 
        frame.setVisible(true);
     }
+
+    public static void start(int gNumber, int gAttackStrength, int hNumber, int hAttackStrenght){
+
+       Population G2 = new Population(gNumber, gAttackStrength, Color.PINK);
+       Population H2 = new Population(hNumber, hAttackStrenght, Color.ORANGE);
+
+       JFrame frame = new JFrame("Lanchester-Modell");
+
+       frame.setSize(Constants.WIDTH, Constants.HEIGHT);
+       frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+       frame.setTitle("Lanchester-Modell");
+       // Get the necessary calculations from VictoryCalc.
+       VictoryCalc victoryCalc = new VictoryCalc(G2, H2);
+       String winner = victoryCalc.victory();
+       double popAtZero = victoryCalc.constantLZeroPop();
+       System.out.println(winner);
+
+       /*
+        * Starts global timer.
+        * To add your class as an event listener, implement TimerListener and add an onTimerTick() method.
+        */
+       TimerManager.getInstance().start();
+
+       MainScreen mainScreen = new MainScreen(G2, H2);
+       LowerScreen lowerScreen = new LowerScreen(G2, H2, victoryCalc);
+
+       frame.setLayout(new BorderLayout());
+       frame.add(mainScreen, BorderLayout.CENTER);
+       frame.add(lowerScreen, BorderLayout.SOUTH);
+
+       frame.setVisible(true);
+
+    }
 }

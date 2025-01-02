@@ -1,21 +1,16 @@
 package gfx;
 
 import lanchester.Population;
-import utils.Constants;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 
 public class GraphicsMain extends JPanel {
 
     public Population P;
     public Color BGcolor;
-    private int diameter = 10;
+    private final int diameter = 15;
 
     public GraphicsMain(Population P, Color BGcolor){
          this.P = P;
@@ -34,11 +29,11 @@ public class GraphicsMain extends JPanel {
         int xc = 0; //to change x position
         int yc = 30; //to change y position, offset at 30 to prevent covering text
 
-        for (int i = 0; i <= P.number; i++) {
+        for (int i = 0; i <= P.number - 1; i++) { //-1 because otherwise there is one circle too many
                 g.fillOval(10 + xc, 10 + yc, diameter, diameter);
-                xc += 15; //spacing between the circles
-                if(xc >= getWidth() - 30){ //next line
-                    yc += 15;
+                xc += diameter + 5; //spacing between the circles
+                if(xc >= getWidth() - diameter * 2){ //next line
+                    yc += diameter + 5;
                     xc = 0;
                 }
         }

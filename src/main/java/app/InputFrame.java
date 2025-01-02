@@ -9,6 +9,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.*;
 
+import static java.lang.Integer.parseInt;
+
 public class InputFrame extends JPanel {
 
     public JButton clearButton = new JButton("Clear");
@@ -61,7 +63,8 @@ public class InputFrame extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                Main.start(parseInt(gPopNumber.getText()), parseInt(gAttack.getText()),
+                        parseInt(hPopNumber.getText()), parseInt(hAttack.getText()));
             }
         });
 
