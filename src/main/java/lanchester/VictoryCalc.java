@@ -50,11 +50,44 @@ public class VictoryCalc {
 
 
     /**
-     * Returns the time when the losing pop hits zero.
+     * Returns the winning population number when the other population is at zero.
      */
     public double constantLZeroPop() {
         // Formula taken from p. 12
         double L = constantL();
         return L > 0.0 ? Math.sqrt(L / s) : Math.sqrt(-L / r);
+    }
+
+
+    /**
+     * Time at which one of the populations hits zero.
+     */
+    public double tPlus() {
+        // Formula taken from p. 15
+        double L = constantL();
+        double denominator;
+        double numerator = Math.sqrt(
+                G.attackStrength * H.attackStrength
+        );
+
+        if (L < 0.0) {
+            denominator = Math.pow(
+                    Math.tanh(
+                            G.numberAtStart /
+                                    Math.sqrt(G.attackStrength / H.attackStrength)
+                            * H.numberAtStart), -1
+            );
+        } else if (L > 0.0) {
+            denominator = Math.pow(
+                    Math.tanh(
+                            H.numberAtStart /
+                                    Math.sqrt(H.attackStrength / G.attackStrength)
+                            * G.numberAtStart), -1
+            );
+        } else {
+        // TODO: Add L = 0.0 edge case
+            denominator = 0.0;
+        }
+        return denominator / numerator;
     }
 }
