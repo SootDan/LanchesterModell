@@ -52,13 +52,14 @@ public class LowerScreen extends JPanel implements TimerListener {
         popPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_POP_WIDTH - 1, Constants.LOWER_SCREEN_HEIGHT));
 
         popPanel.putClientProperty("popLabel", popLabel);
-
+        popLabel.repaint();
         return popPanel;
     }
 
 
     @Override
     public void onTimerTick() {
-        repaint();
+        gPanel.repaint();
+        hPanel.repaint();
     }
 }

@@ -2,7 +2,6 @@ package gfx;
 
 import lanchester.MathManager;
 import lanchester.Population;
-import lanchester.VictoryCalc;
 import utils.Constants;
 import utils.TimerListener;
 import utils.TimerManager;
@@ -107,7 +106,7 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             g.setTransform(affineTransform);
             g.draw(line2D);
 
-            String descriptor = axis == Axis.X ? "" + i : "" + (int) (i * (maxX / axis.incrementer));
+            String descriptor = axis == Axis.X ? "" + i * 2 : "" + (int) (i * (maxX / axis.incrementer));
             g.drawString(
                 descriptor,
                 (int) (axis == Axis.X ? line2D.getX1() : line2D.getX1() - arrow * 4),
