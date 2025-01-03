@@ -52,20 +52,36 @@ public class InputFrame extends JPanel {
         hAttack.setColumns(10);
 
         //add everything
+        gPanel.add(new JLabel("<html><u>Population G</u>"));
+        gPanel.add(new JLabel("Population Number"));
         gPanel.add(gPopNumber);
+        gPanel.add(new JLabel("Attack Strength"));
         gPanel.add(gAttack);
+
+        hPanel.add(new JLabel("<html><u>Population H</u>"));
+        hPanel.add(new JLabel("Population Number"));
         hPanel.add(hPopNumber);
+        hPanel.add(new JLabel("Attack Strength"));
         hPanel.add(hAttack);
+
         buttons.add(startButton);
         buttons.add(clearButton);
 
-        //TODO: button creates the Populations that will be used in rest of code, as well as the new frame that holds the animations.
+
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                /*Main.start(parseInt(gPopNumber.getText()), parseInt(gAttack.getText()),
-                        parseInt(hPopNumber.getText()), parseInt(hAttack.getText()));
-            */}
+                Main.start(parseInt(gPopNumber.getText()), parseInt(gAttack.getText())/10.0,
+                       parseInt(hPopNumber.getText()), parseInt(hAttack.getText())/10.0);
+            }
+        });
+
+        //TODO: Clear Button functions
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                gPopNumber.setText("");
+            }
         });
 
         this.add(gPanel);
