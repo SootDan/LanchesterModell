@@ -24,8 +24,8 @@ public class LowerScreen extends JPanel implements TimerListener {
 
         setPreferredSize(new Dimension(Constants.WIDTH, Constants.LOWER_SCREEN_HEIGHT));
 
-        gPanel = createPopPanel(mathManager.G);
-        hPanel = createPopPanel(mathManager.H);
+        gPanel = createPopPanel(mathManager.G, String.valueOf(mathManager.G.number));
+        hPanel = createPopPanel(mathManager.H, String.valueOf(mathManager.H.number));
         coordinateSystem = new CoordinateSystem(mathManager);
 
         setLayout(new BorderLayout());
@@ -41,25 +41,33 @@ public class LowerScreen extends JPanel implements TimerListener {
     /**
      * Creates the information panels about each population to the bottom left/right.
      */
-    public JPanel createPopPanel(Population pop) {
+    public JPanel createPopPanel(Population pop, String str) {
         JPanel popPanel = new JPanel();
-        JLabel popLabel = new JLabel("<html>Population Size: " + pop.number
-        + "<br>Attack Power: " + pop.attackStrength + "</html>");
+        JLabel popLabel = new JLabel(popLabelString(pop));
         popLabel.setForeground(Color.WHITE);
 
         popPanel.add(popLabel);
         popPanel.setBackground(Color.DARK_GRAY);
         popPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_POP_WIDTH - 1, Constants.LOWER_SCREEN_HEIGHT));
-
         popPanel.putClientProperty("popLabel", popLabel);
-        popLabel.repaint();
         return popPanel;
     }
 
+    public void updatePopPanel(JPanel panel, Population pop) {
+        JLabel popLabel = (JLabel) panel.getClientProperty("popLabel");
+        popLabel.setText(popLabelString(pop));
+    }
+
+
+    public String popLabelString(Population p) {
+        String str = "<html>Population Size: %.2f  (- %.2f ) <br>Attack Power: %.2f </html>";
+        double diff = p.numberAtStart - p.number;
+        return String.format(str, p.number, diff, p.attackStrength);
+    }
 
     @Override
     public void onTimerTick() {
-        gPanel.repaint();
-        hPanel.repaint();
+        updatePopPanel(gPanel, mathManager.G);
+        updatePopPanel(hPanel, mathManager.H);
     }
 }
