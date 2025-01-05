@@ -121,13 +121,13 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      * Draws the population over time.
      */
     private void drawPopGraph(Graphics2D g, Population p1, Population p2) {
-        double tPlus = mathManager.victoryCalc.tPlus();
         Vector2D[] popAtT = new Vector2D[Constants.MAX_TICKS];
 
         for (int i = 0; i < popAtT.length; i++) {
             double popNum = mathManager.G.number / maxX;
             if (popNum < 0.0) popNum = 0.0;
-            popAtT[i] = new Vector2D(x0 + deltaX, y0 + popNum * deltaY);
+            popAtT[i] = new Vector2D(x0, y1);
+            g.drawLine((int) x0, (int) (y0 + deltaY * p1.numberAtStart / maxX), (int) (x0 + deltaX * mathManager.ticks / Constants.MAX_TICKS), (int) (y0 + deltaY * p1.number / maxX));
         }
         drawWaveForm(g, popAtT, p1.equals(mathManager.G));
     }
@@ -145,11 +145,11 @@ public class CoordinateSystem extends JPanel implements TimerListener {
         int[] xs = new int[popAtT.length];
         int[] ys = new int[popAtT.length];
         for (int i = 0; i < popAtT.length; i++) {
-            xs[i] = (int) popAtT[i].x;
-            ys[i] = (int) popAtT[i].y;
+            xs[i] = (int) 50;
+            ys[i] = (int) 50;
         }
         g.setColor((isG ? mathManager.G.color : mathManager.H.color));
-        g.drawPolyline(xs, ys, popAtT.length);
+        g.drawPolyline(xs, ys, mathManager.ticks);
     }
 
 

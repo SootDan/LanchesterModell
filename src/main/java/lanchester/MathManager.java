@@ -33,10 +33,6 @@ public class MathManager implements TimerListener {
         H.number = H.popAtTime(G, increment * ticks);
         ticks++;
 
-        System.out.println("G: " + G.number);
-        System.out.println("H: " + H.number);
-        System.out.println("Tick: " + ticks);
-
         if (ticks >= Constants.MAX_TICKS)
             TimerManager.getInstance().stop();
 
