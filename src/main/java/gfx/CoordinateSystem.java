@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
+import java.awt.geom.Path2D;
 
 public class CoordinateSystem extends JPanel implements TimerListener {
     private final MathManager mathManager;
@@ -22,6 +23,9 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     // Minimum and maximum of either axis (doesn't take into account the graph -- just the valid points on the axis.)
     double x0, x1, y0, y1;
     double deltaX, deltaY;
+    Vector2D[] gPopAtT = new Vector2D[Constants.MAX_TICKS + 1];
+    Vector2D[] hPopAtT = new Vector2D[Constants.MAX_TICKS + 1];
+
 
     public CoordinateSystem(MathManager mathManager) {
         this.mathManager = mathManager;
@@ -53,9 +57,12 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             drawAxes(g2d, axis);
             drawCoordinateSystem(g2d, axis);
         }
+        gPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.G.numberAtStart / maxX));
+        hPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.H.numberAtStart / maxX));
+
         drawTimer(g);
-        drawPopGraph(g2d, mathManager.G, mathManager.H);
-        drawPopGraph(g2d, mathManager.H, mathManager.G);
+        drawPopGraph(g2d, mathManager.G, true);
+        drawPopGraph(g2d, mathManager.H, false);
     }
 
 
@@ -120,36 +127,30 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     /**
      * Draws the population over time.
      */
-    private void drawPopGraph(Graphics2D g, Population p1, Population p2) {
-        Vector2D[] popAtT = new Vector2D[Constants.MAX_TICKS];
-
-        for (int i = 0; i < popAtT.length; i++) {
-            double popNum = mathManager.G.number / maxX;
-            if (popNum < 0.0) popNum = 0.0;
-            popAtT[i] = new Vector2D(x0, y1);
-            g.drawLine((int) x0, (int) (y0 + deltaY * p1.numberAtStart / maxX), (int) (x0 + deltaX * mathManager.ticks / Constants.MAX_TICKS), (int) (y0 + deltaY * p1.number / maxX));
+    private void drawPopGraph(Graphics2D g, Population p, boolean isG) {
+        // TODO: Rewrite this. God is angry at this shitty code.
+        Path2D path2D = new Path2D.Double();
+        if (isG) {
+            gPopAtT[mathManager.ticks] = new Vector2D(
+                    (x0 + deltaX * (mathManager.ticks) / Constants.MAX_TICKS), (y0 + deltaY * p.number / maxX));
+            path2D.moveTo(gPopAtT[0].x, gPopAtT[0].y);
+        } else {
+            hPopAtT[mathManager.ticks] = new Vector2D(
+                    (x0 + deltaX * (mathManager.ticks) / Constants.MAX_TICKS), (y0 + deltaY * p.number / maxX));
+            path2D.moveTo(hPopAtT[0].x, hPopAtT[0].y);
         }
-        drawWaveForm(g, popAtT, p1.equals(mathManager.G));
+        for (int i = 0; i <= mathManager.ticks; i++) {
+            path2D.lineTo(
+                    isG ? gPopAtT[i].x : hPopAtT[i].x,
+                    isG ? gPopAtT[i].y : hPopAtT[i].y);
+        }
+        g.setColor(p.color);
+        g.draw(path2D);
     }
 
 
     private void drawTimer(Graphics g) {
         g.drawString("t elapsed: " + mathManager.ticks, (int) (bounds.x - origin.x * 2), (int) bounds.y);
-    }
-
-
-    /**
-     * Draws a polyline approximating a wave form.
-     */
-    private void drawWaveForm(Graphics2D g, Vector2D[] popAtT, boolean isG) {
-        int[] xs = new int[popAtT.length];
-        int[] ys = new int[popAtT.length];
-        for (int i = 0; i < popAtT.length; i++) {
-            xs[i] = (int) 50;
-            ys[i] = (int) 50;
-        }
-        g.setColor((isG ? mathManager.G.color : mathManager.H.color));
-        g.drawPolyline(xs, ys, mathManager.ticks);
     }
 
 
