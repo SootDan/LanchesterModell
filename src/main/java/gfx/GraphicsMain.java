@@ -21,6 +21,16 @@ public class GraphicsMain extends JPanel {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
+        setLayout(new BorderLayout());
+        //if a high number is put in, it scales down population
+        if(P.numberAtStart >= 500){
+            P.number = P.number/10;
+            add(new JLabel("scale 1:10"), BorderLayout.PAGE_END);
+        }
+        else{
+            add(new JLabel("scale 1:1"), BorderLayout.PAGE_END);
+        }
+
         g.setColor(P.color);
         g.fillRect(0,0, this.getWidth(), this.getHeight());
 

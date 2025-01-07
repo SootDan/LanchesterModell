@@ -36,7 +36,7 @@ public class Main {
         * Starts global timer.
         * To add your class as an event listener, implement TimerListener and add an onTimerTick() method.
         */
-       TimerManager.getInstance().start();
+      TimerManager.getInstance().start();
 
        MainScreen mainScreen = new MainScreen(mathManager);
        LowerScreen lowerScreen = new LowerScreen(mathManager);
