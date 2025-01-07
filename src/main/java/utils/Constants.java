@@ -14,7 +14,7 @@ public class Constants {
     public static int MAIN_SCREEN_PANEL_WIDTH = WIDTH/2;
 
     // Ticks/Time system
-    public static int MAX_TICKS = 1000;
-    public static int MS_PER_TICK = 100;
-    public static int TIMESCALE = 2;
+    public static int MAX_TICKS = 500;
+    public static int MS_PER_TICK = 50;
+    public static int TIMESCALE = 1;
 }

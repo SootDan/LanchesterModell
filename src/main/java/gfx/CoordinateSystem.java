@@ -57,9 +57,6 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             drawAxes(g2d, axis);
             drawCoordinateSystem(g2d, axis);
         }
-        gPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.G.numberAtStart / maxX));
-        hPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.H.numberAtStart / maxX));
-
         drawTimer(g);
         drawPopGraph(g2d, mathManager.G, true);
         drawPopGraph(g2d, mathManager.H, false);
@@ -100,17 +97,13 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             g.drawString("p(t)", (float) bounds.x, (float) origin.y);
         }
 
-        AffineTransform base = g.getTransform();
-        AffineTransform affineTransform = new AffineTransform();
         // Draws the actual ticks for each axis.
         for (int i = 0; i <= axis.incrementer; i++) {
-            double dx = axis == Axis.X ? deltaX / axis.incrementer * i : 0.0;
-            double dy = axis == Axis.X ? 0.0 : deltaY / axis.incrementer * i;
+            double dx = deltaX / axis.incrementer * i;
+            double dy = deltaY / axis.incrementer * i;
             Line2D line2D = axis == Axis.X
-                    ? new Line2D.Double(0, -arrow, 0, arrow)
-                    : new Line2D.Double(-arrow, 0, arrow, 0);
-            affineTransform.setToTranslation(origin.x + dx, origin.y + dy);
-            g.setTransform(affineTransform);
+                    ? new Line2D.Double(x0 + dx, y0 + -arrow, x0 + dx, y0 + arrow)
+                    : new Line2D.Double(x0 - arrow, y0 + dy, x0 + arrow, y0 + dy);
             g.draw(line2D);
 
             String descriptor = axis == Axis.X ? "" + i: "" + (int) (i * (maxX / axis.incrementer));
@@ -120,7 +113,6 @@ public class CoordinateSystem extends JPanel implements TimerListener {
                 (int) (axis == Axis.X ? line2D.getY2() + arrow * 3 : line2D.getY2())
             );
         }
-        g.setTransform(base);
     }
 
 
@@ -129,6 +121,9 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      */
     private void drawPopGraph(Graphics2D g, Population p, boolean isG) {
         // TODO: Rewrite this. God is angry at this shitty code.
+        gPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.G.numberAtStart / maxX));
+        hPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.H.numberAtStart / maxX));
+
         Path2D path2D = new Path2D.Double();
         if (isG) {
             gPopAtT[mathManager.ticks] = new Vector2D(
