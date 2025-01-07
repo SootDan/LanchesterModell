@@ -1,6 +1,7 @@
 package app;
 
 import lanchester.Population;
+import utils.Constants;
 import utils.TimerManager;
 
 import javax.swing.*;
@@ -14,7 +15,7 @@ import static java.lang.Integer.parseInt;
 
 public class InputFrame extends JPanel {
 
-    public JButton clearButton = new JButton("Clear");
+    public JButton resetButton = new JButton("Reset");
     public JButton startButton = new JButton("Start");
     public JButton pauseButton = new JButton("Pause");
 
@@ -25,8 +26,6 @@ public class InputFrame extends JPanel {
     private JPanel hPanel = new JPanel();
     private JPanel buttons = new JPanel();
 
-    public int gPopNu;
-
     public InputFrame() {
         //To only allow input of numbers in Textfield
         NumberFormat format = NumberFormat.getInstance();
@@ -35,9 +34,9 @@ public class InputFrame extends JPanel {
         formatter.setMaximum(Integer.MAX_VALUE);
         formatter.setAllowsInvalid(false);
 
-        gPanel.setBackground(Color.PINK);
-        hPanel.setBackground(Color.ORANGE);
-        buttons.setBackground(Color.DARK_GRAY);
+        gPanel.setBackground(Constants.Gcolor);
+        hPanel.setBackground(Constants.Hcolor);
+        buttons.setBackground(Constants.sidesColor);
 
         this.setLayout(new GridLayout(1, 3));
 
@@ -68,7 +67,7 @@ public class InputFrame extends JPanel {
 
         //buttons.setLayout(new GridLayout(3,1));
         buttons.add(startButton);
-        buttons.add(clearButton);
+        buttons.add(resetButton);
         buttons.add(pauseButton);
 
 
@@ -80,8 +79,8 @@ public class InputFrame extends JPanel {
             }
         });
 
-        //TODO: Find out why one doesn't get cleared and somehow the cleared gets saved and comes back when pressing button again
-        clearButton.addActionListener(new ActionListener() {
+        //TODO: Find out why one doesn't get cleared and somehow the cleared comes back when pressing button again
+        resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gPopNumber.setText("");

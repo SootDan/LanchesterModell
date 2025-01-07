@@ -51,8 +51,8 @@ public class Main {
 
     public static void start(int gNumber, double gAttackStrength, int hNumber, double hAttackStrength){
 
-       Population G2 = new Population(gNumber, gAttackStrength, Color.PINK);
-       Population H2 = new Population(hNumber, hAttackStrength, Color.LIGHT_GRAY);
+       Population G2 = new Population(gNumber, gAttackStrength, Constants.Gcolor);
+       Population H2 = new Population(hNumber, hAttackStrength, Constants.Hcolor);
 
        JFrame frame = new JFrame("Lanchester-Modell");
 

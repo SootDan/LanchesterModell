@@ -46,7 +46,7 @@ public class LowerScreen extends JPanel implements TimerListener {
         popLabel.setForeground(Color.WHITE);
 
         popPanel.add(popLabel);
-        popPanel.setBackground(Color.DARK_GRAY);
+        popPanel.setBackground(Constants.sidesColor);
         popPanel.setPreferredSize(new Dimension(Constants.LOWER_SCREEN_POP_WIDTH - 1, Constants.LOWER_SCREEN_HEIGHT));
         popPanel.putClientProperty("popLabel", popLabel);
         return popPanel;

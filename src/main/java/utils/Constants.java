@@ -1,5 +1,7 @@
 package utils;
 
+import java.awt.*;
+
 public class Constants {
     // Window Sizes
     public static int WIDTH = 1280;
@@ -17,4 +19,9 @@ public class Constants {
     public static int MAX_TICKS = 500;
     public static int MS_PER_TICK = 50;
     public static int TIMESCALE = 1;
+
+    //Colors
+    public static Color Gcolor = Color.PINK;
+    public static Color Hcolor = Color.LIGHT_GRAY;
+    public static Color sidesColor = Color.GRAY;
 }
