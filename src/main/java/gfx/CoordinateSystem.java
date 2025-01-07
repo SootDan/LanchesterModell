@@ -20,7 +20,7 @@ public class CoordinateSystem extends JPanel implements TimerListener {
     double maxX;
     int border = 25, arrow = 5;
 
-    // Minimum and maximum of either axis (doesn't take into account the graph -- just the valid points on the axis.)
+    // Minimum and maximum of either axis (doesn't take into account the graph - just the valid points on the axis.)
     double x0, x1, y0, y1;
     double deltaX, deltaY;
     Vector2D[] gPopAtT = new Vector2D[Constants.MAX_TICKS + 1];
@@ -113,7 +113,7 @@ public class CoordinateSystem extends JPanel implements TimerListener {
             g.setTransform(affineTransform);
             g.draw(line2D);
 
-            String descriptor = axis == Axis.X ? "" + i * 2 : "" + (int) (i * (maxX / axis.incrementer));
+            String descriptor = axis == Axis.X ? "" + i: "" + (int) (i * (maxX / axis.incrementer));
             g.drawString(
                 descriptor,
                 (int) (axis == Axis.X ? line2D.getX1() : line2D.getX1() - arrow * 4),
@@ -150,7 +150,8 @@ public class CoordinateSystem extends JPanel implements TimerListener {
 
 
     private void drawTimer(Graphics g) {
-        g.drawString("t elapsed: " + mathManager.ticks, (int) (bounds.x - origin.x * 2), (int) bounds.y);
+        g.drawString("t elapsed: " + mathManager.ticks / Constants.MS_PER_TICK,
+                (int) (bounds.x - origin.x * 2), (int) bounds.y);
     }
 
 

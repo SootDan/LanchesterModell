@@ -1,1 +1,1 @@
-test
+# Lanchester-Modell

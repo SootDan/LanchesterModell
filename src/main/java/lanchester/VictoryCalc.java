@@ -85,7 +85,6 @@ public class VictoryCalc {
                             * G.numberAtStart), -1
             );
         } else {
-        // TODO: Add L = 0.0 edge case
             denominator = 0.0;
         }
         return denominator / numerator;

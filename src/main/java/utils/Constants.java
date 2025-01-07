@@ -8,14 +8,13 @@ public class Constants {
     // Lower Screen
     public static int LOWER_SCREEN_HEIGHT = 154;
     public static int LOWER_SCREEN_POP_WIDTH = 256;
-    public static int LOWER_SCREEN_STAT_WIDTH = 768;
 
     // Main Screen
     public static int MAIN_SCREEN_HEIGHT = 614;
     public static int MAIN_SCREEN_PANEL_WIDTH = WIDTH/2;
 
     // Ticks/Time system
-    public static int MAX_TICKS = 20;
-    public static int MS_PER_TICK = 1000;
+    public static int MAX_TICKS = 1000;
+    public static int MS_PER_TICK = 100;
     public static int TIMESCALE = 2;
 }

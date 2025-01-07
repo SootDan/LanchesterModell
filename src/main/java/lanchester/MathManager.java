@@ -29,9 +29,12 @@ public class MathManager implements TimerListener {
     @Override
     public void onTimerTick() {
         double increment = victoryCalc.tPlus() / (double) Constants.MAX_TICKS;
+        if (G.number > 0.0 && H.number > 0.0) {
+            G.number = G.popAtTime(H, increment * ticks);
+            H.number = H.popAtTime(G, increment * ticks);
+        }
         ticks++;
-        G.number = G.popAtTime(H, increment * ticks);
-        H.number = H.popAtTime(G, increment * ticks);
+
 
         if (ticks >= Constants.MAX_TICKS)
             TimerManager.getInstance().stop();
