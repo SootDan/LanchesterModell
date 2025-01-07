@@ -34,9 +34,9 @@ public class InputFrame extends JPanel {
         formatter.setMaximum(Integer.MAX_VALUE);
         formatter.setAllowsInvalid(false);
 
-        gPanel.setBackground(Constants.Gcolor);
-        hPanel.setBackground(Constants.Hcolor);
-        buttons.setBackground(Constants.sidesColor);
+        gPanel.setBackground(Constants.G_COLOR);
+        hPanel.setBackground(Constants.H_COLOR);
+        buttons.setBackground(Constants.SIDES_COLOR);
 
         this.setLayout(new GridLayout(1, 3));
 

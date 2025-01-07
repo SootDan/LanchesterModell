@@ -21,7 +21,7 @@ public class Constants {
     public static int TIMESCALE = 1;
 
     //Colors
-    public static Color Gcolor = Color.PINK;
-    public static Color Hcolor = Color.LIGHT_GRAY;
-    public static Color sidesColor = Color.GRAY;
+    public static Color G_COLOR = Color.PINK;
+    public static Color H_COLOR = Color.LIGHT_GRAY;
+    public static Color SIDES_COLOR = Color.GRAY;
 }

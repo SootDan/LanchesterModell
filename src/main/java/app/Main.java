@@ -1,9 +1,7 @@
 package app;
 import lanchester.MathManager;
 import lanchester.Population;
-import lanchester.VictoryCalc;
 import utils.Constants;
-import utils.TimerListener;
 import utils.TimerManager;
 
 import javax.swing.*;
@@ -51,8 +49,8 @@ public class Main {
 
     public static void start(int gNumber, double gAttackStrength, int hNumber, double hAttackStrength){
 
-       Population G2 = new Population(gNumber, gAttackStrength, Constants.Gcolor);
-       Population H2 = new Population(hNumber, hAttackStrength, Constants.Hcolor);
+       Population G2 = new Population(gNumber, gAttackStrength, Constants.G_COLOR);
+       Population H2 = new Population(hNumber, hAttackStrength, Constants.H_COLOR);
 
        JFrame frame = new JFrame("Lanchester-Modell");
 
