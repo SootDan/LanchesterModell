@@ -35,7 +35,6 @@ public class MathManager implements TimerListener {
         }
         ticks++;
 
-
         if (ticks >= Constants.MAX_TICKS)
             TimerManager.getInstance().stop();
     }

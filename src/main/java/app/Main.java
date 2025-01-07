@@ -11,7 +11,7 @@ import java.awt.*;
 
 public class Main {
    static Population G = new Population(200, 1, Color.PINK);
-   static Population H = new Population(100, 8, Color.ORANGE);
+   static Population H = new Population(100, 8, Color.LIGHT_GRAY);
 //TODO: remove frame from main method, so that its only created what start button is pressed
    //maybe we can open input frame again after simulation is done, to be able to input other numbers without restarting application
     public static void main(String[] args) {
@@ -52,7 +52,7 @@ public class Main {
     public static void start(int gNumber, double gAttackStrength, int hNumber, double hAttackStrength){
 
        Population G2 = new Population(gNumber, gAttackStrength, Color.PINK);
-       Population H2 = new Population(hNumber, hAttackStrength, Color.ORANGE);
+       Population H2 = new Population(hNumber, hAttackStrength, Color.LIGHT_GRAY);
 
        JFrame frame = new JFrame("Lanchester-Modell");
 

@@ -15,18 +15,6 @@ public class VictoryCalc {
     }
 
 
-    public String victory() {
-        // Formula taken from p. 14
-        double L = constantL();
-        if (L == 0.0) {
-            if (G.numberAtStart == H.numberAtStart && r == s)
-                return "Tragisches Unentschieden";
-            return (G.numberAtStart > H.numberAtStart ? "Pyrrhussieg für G" : "Pyrrhussieg für H");
-        }
-        return (L > 0.0 ? "G gewinnt" : "H gewinnt");
-    }
-
-
     /**
      * Returns the population number at time t for either pop.
      */
@@ -46,16 +34,6 @@ public class VictoryCalc {
     public double constantL() {
         // Formula taken from p. 13
         return s * Math.pow(G.numberAtStart, 2) - r * Math.pow(H.numberAtStart, 2);
-    }
-
-
-    /**
-     * Returns the winning population number when the other population is at zero.
-     */
-    public double constantLZeroPop() {
-        // Formula taken from p. 12
-        double L = constantL();
-        return L > 0.0 ? Math.sqrt(L / s) : Math.sqrt(-L / r);
     }
 
 
@@ -84,9 +62,8 @@ public class VictoryCalc {
                                     Math.sqrt(H.attackStrength / G.attackStrength)
                             * G.numberAtStart), -1
             );
-        } else {
+        } else
             denominator = 0.0;
-        }
         return denominator / numerator;
     }
 }

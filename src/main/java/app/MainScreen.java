@@ -15,10 +15,10 @@ import java.awt.*;
  * This is the upper border of the simulation's main screen.
  */
 public class MainScreen extends JPanel implements TimerListener {
-
     public JPanel gPanel, hPanel;
     public Population G, H;
     public MathManager mathManager;
+
 
     public MainScreen(MathManager mathManager) {
         this.mathManager = mathManager;
@@ -33,7 +33,6 @@ public class MainScreen extends JPanel implements TimerListener {
         hPanel.add(new JLabel("Population H"));
 
         this.setLayout(new GridLayout(1, 2, 0, 0));
-
         this.add(gPanel);
         this.add(hPanel);
 
@@ -54,7 +53,6 @@ public class MainScreen extends JPanel implements TimerListener {
         gPanel.repaint();
         hPanel.repaint();
     }
-
 }
 
 
