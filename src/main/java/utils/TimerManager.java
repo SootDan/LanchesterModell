@@ -12,6 +12,7 @@ public class TimerManager {
     private static TimerManager instance;
     private Timer timer;
     private List<TimerListener> listeners;
+    public boolean isOn;
 
     
     private TimerManager() {
@@ -29,11 +30,13 @@ public class TimerManager {
 
     public void start() {
         timer.start();
+        isOn = true;
     }
 
 
     public void stop() {
         timer.stop();
+        isOn = false;
     }
 
 

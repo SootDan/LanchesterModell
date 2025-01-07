@@ -15,13 +15,13 @@ public class Main {
 //TODO: remove frame from main method, so that its only created what start button is pressed
    //maybe we can open input frame again after simulation is done, to be able to input other numbers without restarting application
     public static void main(String[] args) {
-       JFrame frame = new JFrame("Lanchester-Modell");
+    //   JFrame frame = new JFrame("Lanchester-Modell");
        JFrame input = new JFrame("Input Frame");
-
+/*
        frame.setSize(Constants.WIDTH, Constants.HEIGHT);
        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        frame.setTitle("Lanchester-Modell");
-
+*/
        input.setSize(450, 200);
        input.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
        input.setTitle("Input your Populations");
@@ -36,17 +36,17 @@ public class Main {
         * Starts global timer.
         * To add your class as an event listener, implement TimerListener and add an onTimerTick() method.
         */
-      TimerManager.getInstance().start();
+//       TimerManager.getInstance().start();
 
        MainScreen mainScreen = new MainScreen(mathManager);
        LowerScreen lowerScreen = new LowerScreen(mathManager);
-
+/*
        frame.setLayout(new BorderLayout());
        frame.add(mainScreen, BorderLayout.CENTER);
        frame.add(lowerScreen, BorderLayout.SOUTH);
 
        frame.setVisible(true);
-
+*/
     }
 
     public static void start(int gNumber, double gAttackStrength, int hNumber, double hAttackStrength){

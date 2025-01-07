@@ -1,6 +1,7 @@
 package app;
 
 import lanchester.Population;
+import utils.TimerManager;
 
 import javax.swing.*;
 import javax.swing.text.NumberFormatter;
@@ -15,6 +16,7 @@ public class InputFrame extends JPanel {
 
     public JButton clearButton = new JButton("Clear");
     public JButton startButton = new JButton("Start");
+    public JButton pauseButton = new JButton("Pause");
 
     public Population G;
     public Population H;
@@ -64,8 +66,10 @@ public class InputFrame extends JPanel {
         hPanel.add(new JLabel("Attack Strength"));
         hPanel.add(hAttack);
 
+        //buttons.setLayout(new GridLayout(3,1));
         buttons.add(startButton);
         buttons.add(clearButton);
+        buttons.add(pauseButton);
 
 
         startButton.addActionListener(new ActionListener() {
@@ -76,11 +80,28 @@ public class InputFrame extends JPanel {
             }
         });
 
-        //TODO: Clear Button functions
+        //TODO: Find out why one doesn't get cleared and somehow the cleared gets saved and comes back when pressing button again
         clearButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 gPopNumber.setText("");
+                gAttack.setText("");
+                hPopNumber.setText("");
+                hAttack.setText("");
+            }
+        });
+
+        pauseButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(TimerManager.getInstance().isOn == true) {
+                    TimerManager.getInstance().stop();
+                    pauseButton.setText("Continue");
+                }
+                else {
+                    TimerManager.getInstance().start();
+                    pauseButton.setText("Pause");
+                }
             }
         });
 
