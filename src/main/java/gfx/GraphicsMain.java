@@ -40,10 +40,8 @@ public class GraphicsMain extends JPanel {
         int yc = 30; //to change y position, offset at 30 to prevent covering text
 
         for (int i = 0; i <= P.number - 1; i++) { //-1 because otherwise there is one circle too many
-
             int x = xc + 10;
             int y = yc + 10;
-
             //head
             g.fillOval(x, y, diameter, diameter);
             //torso
@@ -58,8 +56,7 @@ public class GraphicsMain extends JPanel {
             //right leg
             g.drawLine(x + halfDiameter, y + diameter * 2,
                     x + diameter, y + diameter * 2 + halfDiameter);
-
-            xc += diameter + 5; //spacing between the circles
+            xc += diameter + 5; //spacing between the soldiers
             if(xc >= getWidth() - diameter * 2){ //next line
                 yc += diameter * 3;
                 xc = 0;

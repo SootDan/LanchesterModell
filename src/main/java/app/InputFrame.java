@@ -79,7 +79,6 @@ public class InputFrame extends JPanel {
             }
         });
 
-        //TODO: Find out why one doesn't get cleared and somehow the cleared comes back when pressing button again
         resetButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
