@@ -1,1 +1,0 @@
-# Lanchester-Modell
