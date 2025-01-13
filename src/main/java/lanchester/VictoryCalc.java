@@ -20,10 +20,10 @@ public class VictoryCalc {
      */
     public double[] popAtTime(double t) {
         // Formula taken from p. 9
-        double Gt = G.numberAtStart * Math.cosh(Math.sqrt(s * r) * t) - Math.sqrt(r / s) * H.numberAtStart *
-                Math.sinh(Math.sqrt(s * r) * t);
-        double Ht = H.numberAtStart * Math.cosh(Math.sqrt(s * r) * t) - Math.sqrt(s / r) * G.numberAtStart *
-                Math.sinh(Math.sqrt(s * r) * t);
+        double Gt = G.numberAtStart * Math.cosh(k * t) - Math.sqrt(r / s) * H.numberAtStart *
+                Math.sinh(k * t);
+        double Ht = H.numberAtStart * Math.cosh(k * t) - Math.sqrt(s / r) * G.numberAtStart *
+                Math.sinh(k * t);
         return new double[] {Gt, Ht};
     }
 
@@ -44,26 +44,13 @@ public class VictoryCalc {
         // Formula taken from p. 15
         double L = constantL();
         double denominator;
-        double numerator = Math.sqrt(
-                G.attackStrength * H.attackStrength
-        );
 
-        if (L < 0.0) {
-            denominator = Math.pow(
-                    Math.tanh(
-                            G.numberAtStart /
-                                    Math.sqrt(G.attackStrength / H.attackStrength)
-                            * H.numberAtStart), -1
-            );
-        } else if (L > 0.0) {
-            denominator = Math.pow(
-                    Math.tanh(
-                            H.numberAtStart /
-                                    Math.sqrt(H.attackStrength / G.attackStrength)
-                            * G.numberAtStart), -1
-            );
-        } else
-            denominator = 0.0;
-        return denominator / numerator;
+        if (L < 0.0)
+            denominator = Math.pow(Math.tanh(G.numberAtStart / Math.sqrt(s / r) * H.numberAtStart), -1);
+        else if (L > 0.0)
+            denominator = Math.pow(Math.tanh(H.numberAtStart / Math.sqrt(r / s) * G.numberAtStart), -1);
+        else
+            denominator = 1.0;
+        return denominator / k;
     }
 }

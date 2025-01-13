@@ -7,7 +7,6 @@ import utils.TimerListener;
 import utils.TimerManager;
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.awt.geom.Line2D;
 import java.awt.geom.Path2D;
 
@@ -120,7 +119,6 @@ public class CoordinateSystem extends JPanel implements TimerListener {
      * Draws the population over time.
      */
     private void drawPopGraph(Graphics2D g, Population p, boolean isG) {
-        // TODO: Rewrite this. God is angry at this shitty code.
         gPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.G.numberAtStart / maxX));
         hPopAtT[0] = new Vector2D(x0, (y0 + deltaY * mathManager.H.numberAtStart / maxX));
 

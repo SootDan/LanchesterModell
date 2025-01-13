@@ -5,7 +5,7 @@ With Lanchester's Laws, one may pre-determine the outcome of a fight if given th
 
 ## Programming
 The project was developed with Java 23. No further packages than the standard Java library are needed.  
-The mathematical formulas are derviced from a simplified version of Lanchester's Laws; they are stored within the MathManager class.  
+The mathematical formulas are derived from a simplified version of Lanchester's Laws; they are stored within the MathManager class.  
 
 ## About
 This project is made by second-semester students [Daniel Georg](https://github.com/SootDan) and [Julia Weidner](https://github.com/Julia-wr) of the Furtwangen University of Applied Sciences. 

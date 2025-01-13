@@ -74,8 +74,8 @@ public class InputFrame extends JPanel {
         startButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                Main.start(parseInt(gPopNumber.getText()), parseInt(gAttack.getText())/10.0,
-                       parseInt(hPopNumber.getText()), parseInt(hAttack.getText())/10.0);
+                Main.start(parseInt(gPopNumber.getText()), parseInt(gAttack.getText()),
+                       parseInt(hPopNumber.getText()), parseInt(hAttack.getText()));
             }
         });
 
